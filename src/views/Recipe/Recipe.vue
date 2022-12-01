@@ -435,6 +435,10 @@ export default{
         console.log("작성자 선택");
         this.search_object.name = '작성자';
         this.currentSearchStandard = '작성자';
+      }else if(this.object.name == "재료") {
+        console.log("재료 선택");
+        this.search_object.name = '재료';
+        this.currentSearchStandard = '재료';
       }
     },
 

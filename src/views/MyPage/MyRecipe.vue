@@ -6,9 +6,15 @@
         <v-card min-height="70" color="#f5efe6" class="mb-3">
           <!-- 요리 검색 윗줄 -->
           <div class="find-cook flex align-end mb-2">
-            <span class="my-dropdown-toggle my-0 ml-5"> 요리 이름 </span>
+            <dropdown class="my-dropdown-toggle my-0 ml-5"
+              :options="search_standard"
+              :selected="search_object" 
+              v-on:updateOption="searchStandardRunOnSelect" 
+              :placeholder="'검색 기준'"
+              :closeOnOutsideClick="true">
+            </dropdown>
             <v-text-field
-              label="요리를 검색하세요"
+              label="검색어를 입력하세요"
               v-model="searchText"
               hide-details="auto"
               class="mx-5"
@@ -148,6 +154,14 @@ export default{
       emptyText: "",
 
     //드롭다운
+      //검색 기준
+      search_standard: [
+        {name: '요리 이름'},
+        {name: '재료'},
+      ],
+      search_object: {
+        name: '요리 이름',
+      },
       //정렬 기준 objects
       sort_standard: [
         { name: '최근 순'},
@@ -281,6 +295,20 @@ export default{
             vm.sortRequestFailPopup();
           }
         });
+    },
+
+    // 검색 드롭다운 선택시 실행되는 함수
+    searchStandardRunOnSelect(payload) {
+      this.object = payload;
+      if (this.object.name == "요리 이름") {
+        console.log("요리 이름 선택");
+        this.search_object.name = '요리 이름';
+        this.currentSearchStandard = '요리 이름';
+      }else if(this.object.name == "재료") {
+        console.log("재료 선택");
+        this.search_object.name = '재료';
+        this.currentSearchStandard = '재료';
+      }
     },
 
     // 정렬 드롭다운 선택시 실행되는 함수
