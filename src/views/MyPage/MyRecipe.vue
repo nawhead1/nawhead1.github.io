@@ -6,7 +6,7 @@
         <v-card min-height="70" color="#f5efe6" class="mb-3">
           <!-- 요리 검색 윗줄 -->
           <div class="find-cook flex align-end mb-2">
-            <span class="my-dropdown-toggle my-0 ml-5"> 요리 이름 검색 </span>
+            <span class="my-dropdown-toggle my-0 ml-5"> 요리 이름 </span>
             <v-text-field
               label="요리를 검색하세요"
               v-model="searchText"
@@ -151,7 +151,7 @@ export default{
       //정렬 기준 objects
       sort_standard: [
         { name: '최근 순'},
-        { name: '조회 순'},
+        { name: '조회수 순'},
         { name: '좋아요 순'}
       ],
       sort_object: {
@@ -214,7 +214,7 @@ export default{
     },
     sortRequestFailPopup() { // 정렬 실패
       this.headerTitle = "요청 실패";
-      this.content1 = "정렬 정보 요청에 실패했습니다.";
+      this.content1 = "정렬 정보 요청을 실패했습니다.";
       this.showDialog();
     },
 

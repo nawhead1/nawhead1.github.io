@@ -62,7 +62,7 @@
       >
         <template v-slot:body>
           <!-- 내용이 들어가는 부분입니다아 -->
-          <div>로그아웃 하시겠습니까?</div>
+          <div>정말 로그아웃 하시겠습니까?</div>
         </template>
       </popup-dialog>
     </v-dialog>

@@ -133,7 +133,7 @@ export default{
       let vm = this;
       const validate = this.$refs.form.validate();
       if(!validate) {
-        vm.snackbarContents = "아이디와 비밀번호를 모두 입력해 주세요."
+        vm.snackbarContents = "아이디와 비밀번호를 모두 입력해주세요."
         vm.snackbar = true;
         return;
       }
@@ -170,7 +170,7 @@ export default{
             vm.snackbar = true;
           } else if(e.response.status == 500) {
             console.log("500 Unknown error");
-            vm.snackbarContents = "알 수 없는 이유로 로그인에 실패했습니다."
+            vm.snackbarContents = "알 수 없는 오류입니다."
             vm.snackbar = true;
           }
         });

@@ -11,7 +11,7 @@
           <v-row v-if="!isExist" justify="center">
             <v-col cols="12">
               <p style="text-align:center; font-size:1.2em;" class="mt-10">
-                좋아요를 누른 요리 사진 게시글이 없습니다.
+                좋아요를 누른 게시글이 없습니다.
               </p>
             </v-col>
           </v-row>

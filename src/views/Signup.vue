@@ -195,27 +195,27 @@ export default{
         .catch(function (e) {
           if(e.response.status == 400) {
             console.log("400 error");
-            vm.snackbarContents = "중복된 아이디 입니다."
+            vm.snackbarContents = "중복된 아이디 입니다.";
             vm.snackbar = true;
           } else if(e.response.status == 401) {
             console.log("401 error");
-            vm.snackbarContents = "중복된 닉네임 입니다."
+            vm.snackbarContents = "중복된 닉네임 입니다.";
             vm.snackbar = true;
           } else if(e.response.status == 402) {
             console.log("402 error");
-            vm.snackbarContents = "중복된 아이디, 닉네임 입니다."
+            vm.snackbarContents = "중복된 아이디와 닉네임 입니다.";
             vm.snackbar = true;
           } else if(e.response.status == 500) {
             console.log("500 error");
             vm.title = "저장 실패";
-            vm.text1 = "정보 등록에 실패했습니다."
+            vm.text1 = "정보 등록에 실패했습니다.";
             vm.text2 = "재시도 해주십시오."
             vm.showDialog();
           } else if(e.response.status == 502) {
             console.log("502 error");
             vm.title = "저장 실패";
-            vm.text1 = "정보 등록에 실패했습니다."
-            vm.text2 = "재시도 해주십시오."
+            vm.text1 = "정보 등록에 실패했습니다.";
+            vm.text2 = "재시도 해주십시오.";
             vm.showDialog();
           }
         });

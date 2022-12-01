@@ -52,7 +52,7 @@
           <v-row v-if="!isSearchExist" justify="center">
             <v-col cols="12">
               <p style="text-align:center; font-size:1.2em;" class="mt-10">
-                검색된 레시피가 없습니다.
+                검색결과 레시피가 존재하지 않습니다.
               </p>
             </v-col>
           </v-row>
@@ -280,7 +280,7 @@ export default{
     },
     searchRequestFailPopup() { // 검색 실패
       this.headerTitle = "요청 실패";
-      this.content1 = "검색 결과 요청에 실패했습니다.";
+      this.content1 = "검색 결과 요청에 실패하였습니다.";
       this.showDialog();
     },
     sortRequestFailPopup() { // 정렬 실패

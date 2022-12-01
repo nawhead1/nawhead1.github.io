@@ -68,7 +68,7 @@
             <div class="px-10 d-flex wrap align-center ingredients" style="position:relative">
               
               <div class="d-flex flex-column">
-                <span class="my-text ml-10 mr-16 pa-4">식재료 및 양</span>
+                <span class="my-text ml-10 mr-16 pa-4">재료 및 양</span>
                 <v-btn color="#AEBDCA" @click="remainAmmounts" small class="ml-10" width="110" v-if="canDecrease==true">
                   재료 계산
                 </v-btn>
@@ -433,10 +433,12 @@ export default{
       .catch(function (e) {
         if(e.response.status == 500) {
           console.log("500 DB 오류");
-          vm.requestFailPopup();
+          vm.snackbarContents = "게시글을 가져오는데 실패했습니다."
+          vm.snackbar = true;
         } else if(e.response.status == 502) {
           console.log("502 Unknown error");
-          vm.requestFailPopup();
+          vm.snackbarContents = "게시글을 가져오는데 실패했습니다."
+          vm.snackbar = true;
         }
       });
 
@@ -505,8 +507,8 @@ export default{
       this.popupDialog = false;
     },
     deletePopup() {
-      this.headerTitle = "레시피 게시글 삭제";
-      this.content1 = "삭제하시겠습니까?";
+      this.headerTitle = "게시글 삭제";
+      this.content1 = "게시글을 삭제하시겠습니까?";
       this.btn1Title = "취소";
       this.btn2Title = "삭제";
       this.btn2 = true;
@@ -524,8 +526,8 @@ export default{
       this.showDialog();
     },
     deleteFailPopup() {
-      this.headerTitle = "레시피 게시글 삭제 실패";
-      this.content1 = "게시글 삭제에 실패했습니다.";
+      this.headerTitle = "게시글 삭제";
+      this.content1 = "삭제에 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
@@ -533,14 +535,6 @@ export default{
     commentDeleteFailPopup() {
       this.headerTitle = "댓글 삭제";
       this.content1 = "댓글 삭제를 실패했습니다.";
-      this.btn1Title = "확인";
-      this.btn2 = false;
-      this.showDialog();
-    },
-    requestFailPopup() {
-      this.headerTitle = "게시글 불러오기 실패";
-      this.content1 = "레시피 게시글을 불러오는데";
-      this.content2 = "실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
@@ -555,15 +549,15 @@ export default{
     },
     decreaseAmountFailPopup() {
       this.headerTitle = "저장 실패";
-      this.content1 = "감산 결과를 저장하는데 실패했습니다.";
+      this.content1 = "감산결과를 저장하는데 실패했습니다.";
       this.content2 = "";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
     likeFailPopup(text) {
-      this.headerTitle = "좋아요 "+text+" 실패";
-      this.content1 = "좋아요 "+text+"에 실패했습니다.";
+      this.headerTitle = "서버 오류";
+      this.content1 = '"좋아요" '+text+"를 실패하였습니다.";
       this.btn1Title = "취소";
       this.btn2Title = "삭제";
       this.btn2 = true;

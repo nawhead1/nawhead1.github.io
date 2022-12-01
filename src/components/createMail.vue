@@ -156,7 +156,7 @@ export default{
       let vm = this;
       const validate = this.$refs.form.validate();
       if(!validate) {
-        vm.snackbarContents = "쪽지 정보를 입력해 주세요."
+        vm.snackbarContents = "쪽지 내용을 입력해주세요."
         vm.snackbar = true;
         return;
       }

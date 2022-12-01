@@ -4,11 +4,11 @@
     <v-card-text>
 
       <div style="color:#7895B2; font-size: 2.1em;" class="py-6">
-        보유 재료 수정
+        재료 수정
       </div>
 
       <div style="color:#7895B2; font-size: 1.3em;">
-        내용 수정
+        재료 이름
       </div>
 
       <div class="searchbox mb-6">

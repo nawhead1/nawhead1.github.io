@@ -326,17 +326,17 @@ export default{
       let vm = this;
       const validate = this.$refs.form.validate();
       if(!validate) {
-        vm.snackbarContents = "모든 정보를 입력해주세요 (제목 또는 내용)";
+        vm.snackbarContents = "모든 정보를 입력해주세요.";
         vm.snackbar = true;
         return;
       }
       if(vm.recipeCategory == null) {
-        vm.snackbarContents = "모든 정보를 입력해주세요 (카테고리)";
+        vm.snackbarContents = "모든 정보를 입력해주세요.";
         vm.snackbar = true;
         return;
       }
       if(vm.ingredient.length == 0) {
-        vm.snackbarContents = "모든 정보를 입력해주세요 (식재료)";
+        vm.snackbarContents = "모든 정보를 입력해주세요.";
         vm.snackbar = true;
         return;
       }

@@ -60,7 +60,7 @@
 
           <v-row>
             <v-col offset="5" col="2">
-              <v-btn x-large color="#7895B2" @click="addPhoto">게시글 게시</v-btn>
+              <v-btn x-large color="#7895B2" @click="addPhoto">등록하기</v-btn>
             </v-col>
           </v-row>
 

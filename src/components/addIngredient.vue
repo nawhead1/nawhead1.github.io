@@ -8,13 +8,13 @@
       </div>
 
       <div style="color:#7895B2; font-size: 1.3em;">
-        추가할 재료 선택
+        재료 이름
       </div>
 
       <div class="searchbox mb-6">
         <div class="header">
           <v-text-field
-            placeholder="추가할 재료 입력"
+            placeholder="재료 이름 입력"
             hide-details="auto"
             id="inputText"
             @keyup="ingredient_filter"
@@ -299,17 +299,17 @@ export default{
     addIngre() {
       let vm = this;
       if(vm.name == "") {
-        vm.snackbarContents = "이름을 입력해주세요."
+        vm.snackbarContents = "형식에 맞지 않은 정보가 있습니다."
         vm.snackbar = true;
         return;
       }
       if(vm.amount == "") {
-        vm.snackbarContents = "양을 입력해주세요."
+        vm.snackbarContents = "형식에 맞지 않은 정보가 있습니다."
         vm.snackbar = true;
         return;
       }
       if(vm.unit == "") {
-        vm.snackbarContents = "단위를 입력해주세요."
+        vm.snackbarContents = "형식에 맞지 않은 정보가 있습니다."
         vm.snackbar = true;
         return;
       }

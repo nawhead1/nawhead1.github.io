@@ -179,8 +179,8 @@ export default{
       this.showDialog();
     },
     sortRequestFailPopup() { // 정렬 실패
-      this.headerTitle = "요청 실패";
-      this.content1 = "정렬 정보 요청을 실패하였습니다.";
+      this.headerTitle = "서버 오류";
+      this.content1 = "게시글 요청을 실패하였습니다.";
       this.showDialog();
     },
 

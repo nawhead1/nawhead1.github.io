@@ -28,8 +28,8 @@
             <div class="px-10 d-flex align-center my-text">
               <span class="mr-16">레시피 종류</span>
               <v-divider vertical></v-divider>
-              <v-btn @click="showCategoryDialog" class="ml-14">카테고리 선택하기</v-btn>
-              <span class="ml-9">카테고리 : {{recipeCategory}}</span>
+              <v-btn @click="showCategoryDialog" class="ml-14">레시피 종류</v-btn>
+              <span class="ml-4">레시피 종류 : {{recipeCategory}}</span>
             </div>
 
             <div class="line mx-5"></div>
@@ -70,7 +70,7 @@
               <div class="d-flex">
                 <v-btn @click="showAddIngredientDialog" color="success pa-5" class="add-ingredient">
                   <v-icon>mdi-plus-circle-outline</v-icon>
-                  <span>재료 추가하기</span>
+                  <span>재료 추가</span>
                 </v-btn>
               </div>
               
@@ -376,17 +376,17 @@ export default{
       let vm = this;
       const validate = this.$refs.form.validate();
       if(!validate) {
-        vm.snackbarContents = "모든 정보를 입력해주세요 (제목 또는 내용)";
+        vm.snackbarContents = "모든 정보를 입력해주세요.";
         vm.snackbar = true;
         return;
       }
       if(vm.recipeCategory == null) {
-        vm.snackbarContents = "모든 정보를 입력해주세요 (카테고리)";
+        vm.snackbarContents = "모든 정보를 입력해주세요.";
         vm.snackbar = true;
         return;
       }
       if(vm.ingredient.length == 0) {
-        vm.snackbarContents = "모든 정보를 입력해주세요 (식재료)";
+        vm.snackbarContents = "모든 정보를 입력해주세요.";
         vm.snackbar = true;
         return;
       }
@@ -417,12 +417,12 @@ export default{
         .catch(function (e) {
           if(e.response.status == 500) {
             console.log("500 DB error");
-            vm.headerTitle = "게시글 수정 실패";
+            vm.headerTitle = "게시글 수정";
             vm.content1 = "게시글 수정을 실패했습니다."
             vm.showDialog();
           } else if(e.response.status == 502) {
             console.log("502 Unknown error");
-            vm.headerTitle = "게시글 수정 실패";
+            vm.headerTitle = "게시글 수정";
             vm.content1 = "게시글 수정을 실패했습니다."
             vm.showDialog();
           }

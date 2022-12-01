@@ -19,7 +19,7 @@
                     </v-row>
 
                     <!-- 재료 없는 경우 -->
-                    <v-card-text v-if="isEmpty">보유 재료가 없습니다.</v-card-text>
+                    <v-card-text v-if="isEmpty">보유한 재료가 없습니다.</v-card-text>
                   
                     <!-- 재료 있는 경우 -->
                     <v-card-text v-if="!isEmpty">

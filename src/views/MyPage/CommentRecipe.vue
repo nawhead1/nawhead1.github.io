@@ -166,7 +166,7 @@ export default{
     },
     requestFailPopup() { // 실패
       this.headerTitle = "요청 실패";
-      this.content1 = "레시피 게시글 요청에 실패했습니다.";
+      this.content1 = "정보 요청에 실패함";
       this.showDialog();
     },
 

@@ -2,12 +2,12 @@
   <v-card>
     <!-- 제목 부분 -->
     <v-card-title class="justify-start">
-      신고하기
+      신고 사유
     </v-card-title>
 
     <v-card-text>
       <v-textarea
-        label="이곳에 신고 사유를 작성하세요"
+        label="신고 사유를 작성하세요"
         v-model="reportContents"
         required
         outlined
@@ -21,7 +21,7 @@
         small
         @click="$emit('hide')"
       >
-        취소
+        취소하기
       </v-btn>
       <v-btn
         color="#7895B2"
@@ -96,9 +96,16 @@ export default{
       this.reportPost();
       this.hideDialog();
     },
-    reportFailPopup(){
-      this.titlePopup = "신고 등록 실패";
+    reportFailPopupR(){
+      this.titlePopup = "등록 실패";
       this.content = "신고 등록에 실패했습니다.";
+      this.titleBtn1 = "확인";
+      this.btn2 = false;
+      this.showDialog();
+    },
+    reportFailPopupP(){
+      this.titlePopup = "서버 오류";
+      this.content = "신고 정보 등록을 실패하였습니다.";
       this.titleBtn1 = "확인";
       this.btn2 = false;
       this.showDialog();
@@ -146,10 +153,10 @@ export default{
           .catch(function (e) {
             if(e.response.status == 500) {
               console.log("500 DB error");
-              vm.reportFailPopup();
+              vm.reportFailPopupR();
             } else if(e.response.status == 502) {
               console.log("502 Unknown error");
-              vm.reportFailPopup();
+              vm.reportFailPopupR();
             }
           });
         } else if(vm.postType == 2) {
@@ -163,10 +170,10 @@ export default{
           .catch(function (e) {
             if(e.response.status == 500) {
               console.log("500 DB error");
-              vm.reportFailPopup();
+              vm.reportFailPopupP();
             } else if(e.response.status == 502) {
               console.log("502 Unknown error");
-              vm.reportFailPopup();
+              vm.reportFailPopupP();
             }
           });
         } else if(vm.postType == -1) {
