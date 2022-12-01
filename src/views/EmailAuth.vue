@@ -26,7 +26,7 @@
       </v-row>
       <v-row>
         <v-col cols="2" offset="5">
-          <v-btn @click="firstcheck()" style="width: 100%">코드 전송하기</v-btn>
+          <v-btn @click="firstcheck()" style="width: 100%">코드 전송</v-btn>
         </v-col>
       </v-row>
       <v-row>
@@ -41,7 +41,7 @@
       </v-row>
       <v-row>
         <v-col cols="2" offset="5">
-          <v-btn @click="secondcheck()" style="width: 100%">인증하기</v-btn>
+          <v-btn @click="secondcheck()" style="width: 100%">인증 확인</v-btn>
         </v-col>
       </v-row>
       <v-row>

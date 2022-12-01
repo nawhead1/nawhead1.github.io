@@ -14,7 +14,7 @@
               :closeOnOutsideClick="true">
             </dropdown>
             <v-text-field
-              label="요리를 검색하세요"
+              label="검색어를 입력하세요"
               v-model="searchText"
               hide-details="auto"
               class="mx-5"
@@ -200,7 +200,8 @@ export default{
       //검색 기준
       search_standard: [
         {name: '요리 이름'},
-        {name: '작성자'}
+        {name: '작성자'},
+        {name: '재료'},
       ],
       search_object: {
         name: '요리 이름',
@@ -208,7 +209,7 @@ export default{
       //정렬 기준 objects
       sort_standard: [
         { name: '최근 순'},
-        { name: '조회 순'},
+        { name: '조회수 순'},
         { name: '좋아요 순'}
       ],
       sort_object: {

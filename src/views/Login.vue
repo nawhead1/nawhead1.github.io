@@ -18,7 +18,7 @@
         <v-col cols="4" offset="4">
           <v-text-field 
             v-model="info.id" 
-            label="id"
+            label="아이디"
             :rules="id_rule"
           ></v-text-field>
         </v-col>
@@ -27,7 +27,7 @@
         <v-col cols="4" offset="4">
           <v-text-field 
             v-model="info.pw" 
-            label="password"
+            label="비밀번호"
             type="password"
             :rules="pw_rule"
           ></v-text-field>
@@ -35,7 +35,7 @@
       </v-row>
       <v-row>
         <v-col cols="3" offset="4">
-          <v-checkbox v-model="info.al" label="자동 로그인"></v-checkbox>
+          <v-checkbox v-model="info.al" label="자동로그인"></v-checkbox>
         </v-col>
       </v-row>
       <v-row justify="center">
@@ -43,7 +43,7 @@
           <v-btn @click="signup">회원가입</v-btn>
         </v-col>
         <v-col cols="2">
-          <v-btn @click="login" style="width: 100%">login</v-btn>
+          <v-btn @click="login" style="width: 100%">로그인</v-btn>
         </v-col>
       </v-row>
 

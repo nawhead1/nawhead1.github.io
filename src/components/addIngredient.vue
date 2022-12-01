@@ -4,7 +4,7 @@
     <v-card-text>
 
       <div style="color:#7895B2; font-size: 2.1em;" class="py-6">
-        보유 재료 추가
+        {{title}}
       </div>
 
       <div style="color:#7895B2; font-size: 1.3em;">
@@ -60,21 +60,22 @@
         <div class="mb-13"></div>
       </div>
 
-      <div style="color:#7895B2; font-size: 1.3em;">
+      <div v-if="!isRecipe" style="color:#7895B2; font-size: 1.3em;">
         유통기한
       </div>
 
-      <v-date-picker 
-        v-model="expiry_date" 
+      <v-date-picker
+        v-if="!isRecipe"
+        v-model="expiry_date"
         :show-current="true" 
-        :landscape="true" 
+        :landscape="true"
         :reactive="true"
         color="#7895B2"
         class=""
       >
       </v-date-picker>      
 
-      <div class="d-flex justify-center">
+      <div v-if="!isRecipe" class="d-flex justify-center">
          <v-checkbox label="유통기한 선택 안함" v-model="is_expiry_not_exist"></v-checkbox>
       </div>
      
@@ -88,7 +89,7 @@
         x-large
         @click="addIngre()"
       >
-        추가하기
+        재료 추가
       </v-btn>
     </v-card-actions>
 
@@ -144,6 +145,8 @@ export default{
     return {
       snackbar: false,
       snackbarContents: "",
+
+      title: "",
 
       name: "",
       amount: "",
@@ -274,12 +277,14 @@ export default{
   props: {
     isRecipe: {
       type: Boolean,
-      default: false,
     },
   },
   mounted(){
     const UserInfo = JSON.parse(localStorage.getItem("UserInfo"));
     this.nickname = UserInfo.nickname;
+    if(this.isRecipe == true) this.title = "재료 선택";
+    else if(this.isRecipe == false) this.title = "재료 추가";
+    
 
     // 동적 검색 설정
     for (var i=0;i<this.ingredients.length;i++){
@@ -316,10 +321,8 @@ export default{
           "nickname" : UserInfo.nickname,
           "unit" : vm.unit,
         };
-      if(vm.isRecipe == true) {
-        vm.$emit('hide');
-        vm.$emit('add', Ingre);
-      }
+      vm.$emit('hide');
+      vm.$emit('add', Ingre);
     },
     // 재료 필터
     ingredient_filter(){

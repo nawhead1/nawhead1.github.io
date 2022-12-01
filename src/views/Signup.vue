@@ -17,7 +17,7 @@
         <v-col cols="4" offset="4">
           <v-text-field 
             v-model="info.id" 
-            label="id"
+            label="아이디"
             :rules="id_rule"
           ></v-text-field>
         </v-col>
@@ -26,7 +26,7 @@
         <v-col cols="4" offset="4">
           <v-text-field 
             v-model="info.nick" 
-            label="nickname"
+            label="닉네임"
             :rules="nn_rule"
           ></v-text-field>
         </v-col>
@@ -35,7 +35,7 @@
         <v-col cols="4" offset="4">
           <v-text-field 
             v-model="info.pw" 
-            label="password"
+            label="비밀번호"
             type="password"
             :rules="pw_rule"
           ></v-text-field>
@@ -45,7 +45,7 @@
         <v-col cols="4" offset="4">
           <v-text-field 
             v-model="info.pwcheck" 
-            label="check password"
+            label="비밀번호 확인"
             type="password"
             :rules="pwch_rule"
           ></v-text-field>
@@ -53,7 +53,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="auto">
-          <v-btn to="/login">돌아가기</v-btn>
+          <v-btn to="/login">취소</v-btn>
         </v-col>
         <v-col cols="2">
           <v-btn @click="signup" style="width: 100%">회원가입</v-btn>

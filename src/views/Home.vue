@@ -12,11 +12,11 @@
             <div class="d-flex align-center">
               <!-- 음식을 받아와서 넣으시면 됩니다. -->
               <span class="mx-10 py-3" style="font-size:1.1em; font-weight:600; color:#7895B2">{{item.title}}</span>
-              <v-icon color="red" v-if="item%5+1>=1">mdi-chili-mild</v-icon>
-              <v-icon color="red" v-if="item%5+1>=2">mdi-chili-mild</v-icon>
-              <v-icon color="red" v-if="item%5+1>=3">mdi-chili-mild</v-icon>
-              <v-icon color="red" v-if="item%5+1>=4">mdi-chili-mild</v-icon>
-              <v-icon color="red" v-if="item%5+1>=5">mdi-chili-mild</v-icon>
+              <v-icon color="red" v-if="item.degree_of_spicy>=1">mdi-chili-mild</v-icon>
+              <v-icon color="red" v-if="item.degree_of_spicy>=2">mdi-chili-mild</v-icon>
+              <v-icon color="red" v-if="item.degree_of_spicy>=3">mdi-chili-mild</v-icon>
+              <v-icon color="red" v-if="item.degree_of_spicy>=4">mdi-chili-mild</v-icon>
+              <v-icon color="red" v-if="item.degree_of_spicy>=5">mdi-chili-mild</v-icon>
             </div>
             <div style="border: 0.5px solid #7895B2;" class="mx-5"></div>
             <div class="d-flex align-center justify-space-between">
@@ -24,7 +24,7 @@
                 <!-- 날짜를 받아와서 넣으시면 됩니다. -->
                 <span class="mr-3">{{item.upload_time}}</span>
                 <!-- 이름을 받아와서 넣으시면 됩니다 -->
-                <span>{{item.title}}</span>
+                <span>{{item.nickname}}</span>
               </div>
               <div class="mr-6">
                 <!-- 좋아요 받아와서 넣으시면 됩ㄴ디ㅏ. -->
@@ -107,6 +107,8 @@ export default{
             console.log("조회 성공");
             vm.pageLength = response.data.total_page;
             for(let i = 0; i < 5; i++) {
+              var parsedTime = response.data.recipeList[i].upload_time.split(/[T]/);
+              response.data.recipeList[i].upload_time = parsedTime[0];
               vm.recipes.push(response.data.recipeList[i]);
             }
           }

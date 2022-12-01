@@ -164,7 +164,7 @@
       v-model="addIngredientDialog"
     >
       <add-ingredient-dialog
-        :isRecipe='true'
+        :isRecipe='false'
         @add="add"
         @update="update"
         @hide="hideAddIngredientDialog"
@@ -318,6 +318,7 @@ export default{
       const deleteTarget = JSON.stringify ({ "id": this.id });
       herokuAPI.refrigeratorDelete(deleteTarget)
         .then(function(response) {
+          vm.hideDialog();
           console.log("응답 온거", response);
           if(response.status == 200) {
             console.log("삭제 성공");

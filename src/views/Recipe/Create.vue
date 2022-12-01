@@ -28,8 +28,8 @@
             <div class="px-10 d-flex align-center my-text">
               <span class="mr-16">레시피 종류</span>
               <v-divider vertical></v-divider>
-              <v-btn @click="showCategoryDialog" class="ml-14">카테고리 선택하기</v-btn>
-              <span class="ml-9">카테고리 : {{recipeCategory}}</span>
+              <v-btn @click="showCategoryDialog" class="ml-14">레시피 종류</v-btn>
+              <span class="ml-4">레시피 종류 : {{recipeCategory}}</span>
             </div>
 
             <div class="line mx-5"></div>
@@ -44,7 +44,7 @@
                 :placeholder="'매운맛 단계'"
                 :closeOnOutsideClick="true"
               />
-              <span class="ml-4">매운맛 단계 : {{recipeSpicy}}</span>
+              <span class="">매운맛 단계 : {{recipeSpicy}}</span>
             </div>
 
             <div class="line mx-5"></div>
@@ -70,7 +70,7 @@
               <div class="d-flex">
                 <v-btn @click="showAddIngredientDialog" color="success pa-5" class="add-ingredient">
                   <v-icon>mdi-plus-circle-outline</v-icon>
-                  <span>재료 추가하기</span>
+                  <span>재료추가</span>
                 </v-btn>
               </div>
               
