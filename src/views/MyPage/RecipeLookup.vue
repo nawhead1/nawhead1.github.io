@@ -68,7 +68,7 @@
             <div class="px-10 d-flex wrap align-center ingredients" style="position:relative">
               
               <div class="d-flex flex-column">
-                <span class="my-text ml-10 mr-16 pa-4">식재료 및 양</span>
+                <span class="my-text ml-12 mr-16 pa-4">재료 및 양</span>
                 <v-btn color="#AEBDCA" @click="remainAmmounts" small class="ml-10" width="110" v-if="canDecrease==true">
                   재료 계산
                 </v-btn>
@@ -248,6 +248,15 @@
       />
     </v-dialog>
 
+    <v-snackbar v-model="snackbar" timeout="3000">
+      {{ snackbarContents }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </v-container>
 </template>
 
@@ -349,6 +358,9 @@ export default{
       reportType: 0,
       reportID: 0,
 
+      snackbar: false,
+      snackbarContents: "",
+
       requestRecipe: [],
       UnExistIngre: [],
       changeComment: "",
@@ -367,24 +379,6 @@ export default{
       deleteCommentID: -1,
       editCommentID: -1,
 
-      recippeType: [
-        { name: '최근 순'},
-        { name: '조회 순'},
-        { name: '좋아요 순'}
-      ],
-      recippeTypeObject: {
-        name: '한식',
-      },
-      hotLevel: [
-        { name: '1단계'},
-        { name: '2단계'},
-        { name: '3단계'},
-        { name: '4단계'},
-        { name: '5단계'}
-      ],
-      hotLevelObject: {
-        name: '3단계',
-      },
       hotLevel:4,
       canDecrease:false,
       userNN: ""
@@ -420,10 +414,12 @@ export default{
       .catch(function (e) {
         if(e.response.status == 500) {
           console.log("500 DB 오류");
-          vm.requestFailPopup();
+          vm.snackbarContents = "게시글을 가져오는데 실패했습니다."
+          vm.snackbar = true;
         } else if(e.response.status == 502) {
           console.log("502 Unknown error");
-          vm.requestFailPopup();
+          vm.snackbarContents = "게시글을 가져오는데 실패했습니다."
+          vm.snackbar = true;
         }
       });
 
@@ -492,8 +488,8 @@ export default{
       this.popupDialog = false;
     },
     deletePopup() {
-      this.headerTitle = "레시피 게시글 삭제";
-      this.content1 = "삭제하시겠습니까?";
+      this.headerTitle = "게시글 삭제";
+      this.content1 = "게시글을 삭제하시겠습니까?";
       this.btn1Title = "취소";
       this.btn2Title = "삭제";
       this.btn2 = true;
@@ -503,7 +499,7 @@ export default{
     commentDeletePopup(id) {
       this.deleteCommentID = id;
       this.headerTitle = "댓글 삭제";
-      this.content1 = "삭제하시겠습니까?";
+      this.content1 = "댓글을 삭제하시겠습니까?";
       this.btn1Title = "취소";
       this.btn2Title = "삭제";
       this.btn2 = true;
@@ -511,34 +507,65 @@ export default{
       this.showDialog();
     },
     deleteFailPopup() {
-      this.headerTitle = "레시피 게시글 삭제 실패";
-      this.content1 = "게시글 삭제에 실패했습니다.";
+      this.headerTitle = "게시글 삭제";
+      this.content1 = "삭제에 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    requestFailPopup() {
-      this.headerTitle = "게시글 불러오기 실패";
-      this.content1 = "레시피 게시글을 불러오는데";
-      this.content2 = "실패했습니다.";
+    commentDeleteFailPopup() {
+      this.headerTitle = "댓글 삭제";
+      this.content1 = "댓글 삭제를 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
     ingreFailPopup() {
-      this.headerTitle = "사용자 재료 정보 요청 실패";
-      this.content1 = "재료 정보 요청에 실패했습니다";
+      this.headerTitle = "재료 요청 실패";
+      this.content1 = "없는 재료를 가져오는데 실패했습니다.";
+      this.content2 = "";
+      this.btn1Title = "확인";
+      this.btn2 = false;
+      this.showDialog();
+    },
+    decreaseAmountFailPopup() {
+      this.headerTitle = "저장 실패";
+      this.content1 = "감산결과를 저장하는데 실패했습니다.";
       this.content2 = "";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
     likeFailPopup(text) {
-      this.headerTitle = "좋아요 "+text+" 실패";
-      this.content1 = "좋아요 "+text+"에 실패했습니다.";
+      this.headerTitle = "서버 오류";
+      this.content1 = '"좋아요" '+text+"를 실패하였습니다.";
       this.btn1Title = "취소";
       this.btn2Title = "삭제";
       this.btn2 = true;
+      this.showDialog();
+    },
+    commentInvalidPopup() {
+      this.headerTitle = "댓글 작성";
+      this.content1 = "댓글 작성란이 비어있습니다.";
+      this.content2 = "";
+      this.btn1Title = "확인";
+      this.btn2 = false;
+      this.showDialog();
+    },
+    editCommentInvalidPopup() {
+      this.headerTitle = "댓글 수정";
+      this.content1 = "댓글 작성란이 비어있습니다.";
+      this.content2 = "";
+      this.btn1Title = "확인";
+      this.btn2 = false;
+      this.showDialog();
+    },
+    commentAddFailPopup() {
+      this.headerTitle = "댓글 등록";
+      this.content1 = "댓글 등록에 실패하였습니다.";
+      this.content2 = "";
+      this.btn1Title = "확인";
+      this.btn2 = false;
       this.showDialog();
     },
 
@@ -583,6 +610,15 @@ export default{
             vm.$router.go();
           }
         })
+        .catch(function (e) {
+          if(e.response.status == 500) {
+            console.log("403 DB 오류");
+            vm.commentDeleteFailPopup();
+          } else if(e.response.status == 502) {
+            console.log("500 Unknown error");
+            vm.commentDeleteFailPopup();
+          }
+        });
     },
     
     showReportDialog() { // 신고 팝업창 보이기
@@ -652,23 +688,36 @@ export default{
             vm.unExistIngredients();
           }
         })
+        .catch(function (e) {
+          if(e.response.status == 500) {
+            console.log("500 DB 오류");
+            vm.decreaseAmountFailPopup();
+          } else if(e.response.status == 502) {
+            console.log("502 Unknown error");
+            vm.decreaseAmountFailPopup();
+          }
+        });
     },
     methodToRunOnSelect(payload) {
       this.object = payload;
     },
     addComment() {
-      const validate = this.$refs.form.validate();
-      if(!validate) return;
-      console.log("유효성검사 통과");
       let vm = this;
-      const NewComment = JSON.stringify({
+      const validate = this.$refs.form.validate();
+      if(!validate) {
+        vm.commentInvalidPopup();
+        return;
+      }
+      console.log("유효성검사 통과");
+      const Comment = JSON.stringify({
         "comment_id" : 0,
 	      "comments" : vm.newComment,
 	      "comment_time" : 0,
 	      "nickname" : vm.userNN,
 	      "post_id" : vm.requestRecipe.post_id
       });
-      herokuAPI.commentAdd(NewComment)
+      console.log(Comment);
+      herokuAPI.commentAdd(Comment)
         .then(function (response) {
           console.log("응답 정보", response);
           if(response.status == 200) {
@@ -676,6 +725,15 @@ export default{
             vm.$router.go();
           }
         })
+        .catch(function (e) {
+          if(e.response.status == 500) {
+            console.log("403 DB 오류");
+            vm.commentAddFailPopup();
+          } else if(e.response.status == 502) {
+            console.log("500 Unknown error");
+            vm.commentAddFailPopup();
+          }
+        });
     },
     toEditComment(object) {
       this.editCommentID = object.comment_id;
@@ -683,6 +741,10 @@ export default{
     },
     editComment() {
       let vm = this;
+      if(vm.changeComment == "") {
+        vm.editCommentInvalidPopup();
+        return;
+      }
       const changeComment = JSON.stringify({
         "comment_id" : vm.editCommentID,
 	      "comments" : vm.changeComment,
@@ -698,6 +760,17 @@ export default{
             router.go();
           }
         })
+        .catch(function (e) {
+          if(e.response.status == 500) {
+            console.log("403 DB 오류");
+            vm.snackbarContents = "댓글 수정 실패"
+            vm.snackbar = true;
+          } else if(e.response.status == 502) {
+            console.log("500 Unknown error");
+            vm.snackbarContents = "댓글 수정 실패"
+            vm.snackbar = true;
+          }
+        });
     },
 
   // 옆의 메뉴 버튼을 누를 경우 실행되는 함수.
@@ -750,7 +823,7 @@ export default{
     },
     editButtonOnClickMethod(){
       let menuBtn = document.querySelector(".menu-container");
-      console.log("삭제 버튼 누름!");
+      console.log("수정 버튼 누름!");
       menuBtn.classList.remove("visible");
       router.push({
         path: "/recipe/edit/"+this.$route.params.id,

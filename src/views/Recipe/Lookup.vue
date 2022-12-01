@@ -68,7 +68,7 @@
             <div class="px-10 d-flex wrap align-center ingredients" style="position:relative">
               
               <div class="d-flex flex-column">
-                <span class="my-text ml-10 mr-16 pa-4">재료 및 양</span>
+                <span class="my-text ml-12 mr-16 pa-4">재료 및 양</span>
                 <v-btn color="#AEBDCA" @click="remainAmmounts" small class="ml-10" width="110" v-if="canDecrease==true">
                   재료 계산
                 </v-btn>
@@ -379,24 +379,6 @@ export default{
       deleteCommentID: -1,
       editCommentID: -1,
 
-      recippeType: [
-        { name: '최근 순'},
-        { name: '조회 순'},
-        { name: '좋아요 순'}
-      ],
-      recippeTypeObject: {
-        name: '한식',
-      },
-      hotLevel: [
-        { name: '1단계'},
-        { name: '2단계'},
-        { name: '3단계'},
-        { name: '4단계'},
-        { name: '5단계'}
-      ],
-      hotLevelObject: {
-        name: '3단계',
-      },
       hotLevel:4,
       canDecrease:false,
       userNN: ""
@@ -482,6 +464,7 @@ export default{
       "postId": vm.requestRecipe.post_id,
       "task": task
     });
+    console.log(likeInfo);
     herokuAPI.recipeLike(likeInfo)
       .then(function (response) {
         if(response.status == 200) console.log("좋아요 " + task + " 성공");
@@ -844,7 +827,7 @@ export default{
     },
     editButtonOnClickMethod(){
       let menuBtn = document.querySelector(".menu-container");
-      console.log("삭제 버튼 누름!");
+      console.log("수정 버튼 누름!");
       menuBtn.classList.remove("visible");
       let recipeID = this.requestRecipe.post_id
       router.push({
