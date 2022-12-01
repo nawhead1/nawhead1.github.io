@@ -26,7 +26,7 @@
                       <!-- 재료 v card -->
                       <div v-for="item in refrigerators" :key="item.id" class="ingre-card">
                         <!-- 7일 이상 남음 -->
-                        <div v-if="item.expireDate > 7 && item.expireDate != null" class="ingre-green">
+                        <div v-if="item.expireDate > (7*(1000*60*60*24)) && item.expireDate != null" class="ingre-green">
                           <!-- 7일 이상 남은 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
@@ -46,7 +46,7 @@
                           </div>
                         </div>
                         <!-- 3~7일 남음 -->
-                        <div v-if="item.expireDate > 3 && item.expireDate <= 7 && item.expireDate != null" class="ingre-yellow">
+                        <div v-if="item.expireDate > (3*(1000*60*60*24)) && item.expireDate <= (7*(1000*60*60*24)) && item.expireDate != null" class="ingre-yellow">
                           <!-- 7일 이상 남은 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
@@ -66,7 +66,7 @@
                           </div>
                         </div>
                         <!-- 0~3일 남음 -->
-                        <div v-if="item.expireDate >= 0 && item.expireDate <= 3 && item.expireDate != null" class="ingre-red">
+                        <div v-if="item.expireDate > 0 && item.expireDate <= (3*(1000*60*60*24)) && item.expireDate != null" class="ingre-red">
                           <!-- 7일 이상 남은 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
@@ -86,7 +86,7 @@
                           </div>
                         </div>
                         <!-- 유통기한 지남 -->
-                        <div v-if="item.expireDate < 0 && item.expireDate != null" class="ingre-black">
+                        <div v-if="item.expireDate <= 0 && item.expireDate != null" class="ingre-black">
                           <!-- 7일 이상 남은 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
@@ -253,7 +253,7 @@ export default{
             for(let i = 0; response.data[i] != null; i++) {
               if(response.data[i].expiry_date != null){
                 var temp = new Date(response.data[i].expiry_date);
-                response.data[i].expireDate = Math.ceil((temp-now)/(1000*60*60*24));
+                response.data[i].expireDate = Math.ceil(temp-now+54000000);
               } else {
                 response.data[i].expireDate = null;
               }
