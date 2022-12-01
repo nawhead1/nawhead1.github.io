@@ -29,7 +29,7 @@
               <span class="mr-16">레시피 종류</span>
               <v-divider vertical></v-divider>
               <v-btn @click="showCategoryDialog" class="ml-14">카테고리 선택하기</v-btn>
-              <span class="ml-16">카테고리 : {{recipeCategory}}</span>
+              <span class="ml-9">카테고리 : {{recipeCategory}}</span>
             </div>
 
             <div class="line mx-5"></div>
@@ -44,6 +44,7 @@
                 :placeholder="'매운맛 단계'"
                 :closeOnOutsideClick="true"
               />
+              <span class="ml-4">매운맛 단계 : {{recipeSpicy}}</span>
             </div>
 
             <div class="line mx-5"></div>

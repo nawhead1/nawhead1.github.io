@@ -102,11 +102,16 @@
           </v-card>
 
           <!-- 좋아요 숫자 바꿔주세요 -->
-          <div class="d-flex justify-center my-5"  :class="{ 'liked' : isLikedAfter == true, 'unliked' : isLikedAfter == false }">
+          <div class="d-flex justify-center mt-5">
             <v-btn @click="likeRecipe" text icon x-large>
               <v-icon>mdi-thumb-up-outline</v-icon>
-              {{ requestRecipe.like_count }}
+              <div v-if="!isLikedAfter">좋아요</div>
+              <div v-if="isLikedAfter">좋아요 취소</div>
             </v-btn>
+          </div>
+
+          <div class="d-flex justify-center mb-5">
+            {{ requestRecipe.like_count }}
           </div>
 
           <!-- 댓글 개수 바꿔주세요 -->
@@ -283,12 +288,6 @@
 }
 .my-comment{
   max-width:500px;
-}
-.liked {
-  color: #f00;
-}
-.unliked {
-  color: #808080;
 }
 
 .menu-container {
