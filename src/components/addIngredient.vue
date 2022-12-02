@@ -280,6 +280,10 @@ export default{
       vm.name = "";
       vm.amount = "";
       vm.unit = "";
+      document.getElementById("inputUnit").value = "";
+      for (var i=0;i<this.ingredients.length;i++){
+        this.$refs.ingreName[i].classList.remove('visible');
+      }
     }
   },
   mounted(){
@@ -357,7 +361,6 @@ export default{
       for (var i=0;i<this.units.length;i++){
         this.$refs.unitsName[i].classList.add('visible');
       }
-
     },
     // 단위 클릭 시 결정
     clickUnit(payload){
