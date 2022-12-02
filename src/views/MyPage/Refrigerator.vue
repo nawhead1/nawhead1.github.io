@@ -165,6 +165,7 @@
     >
       <add-ingredient-dialog
         :isRecipe='false'
+        :changeState='true'
         @add="add"
         @update="update"
         @hide="hideAddIngredientDialog"

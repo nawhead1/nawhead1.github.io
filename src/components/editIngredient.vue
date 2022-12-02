@@ -52,12 +52,13 @@
         <div class="mb-13"></div>
       </div>
 
-      <div style="color:#7895B2; font-size: 1.3em;">
+      <div v-if="!isRecipe" style="color:#7895B2; font-size: 1.3em;">
         유통기한<br/>  
         <span style="font-size: 0.7em;">달력에서 원래 유통기한을 선택해 주세요.</span>
       </div>
 
       <v-date-picker
+        v-if="!isRecipe"
         v-model="expiry_date" 
         :landscape="true" 
         color="#7895B2"
@@ -65,10 +66,9 @@
       >
       </v-date-picker>      
 
-      <div class="d-flex justify-center">
+      <div v-if="!isRecipe" class="d-flex justify-center">
          <v-checkbox label="유통기한 선택 안함" v-model="is_expiry_not_exist"></v-checkbox>
       </div>
-     
       
     </v-card-text>
 
@@ -105,34 +105,27 @@
 </template>
 
 <style>
-
 .searchbox{
   overflow: hidden;
 }
-
 .ingredient-container{
   max-height:100px;
   overflow: scroll;
 }
-
 .units-container{
   overflow: auto;
 }
-
 .ingreName{
   display: none;
   cursor: pointer;
 }
-
 .unitsName{
   display: none;
   cursor: pointer;
 }
-
 .visible{
   display: flex;
 }
-
 </style>
 
 <script>

@@ -79,7 +79,6 @@
          <v-checkbox label="유통기한 선택 안함" v-model="is_expiry_not_exist"></v-checkbox>
       </div>
      
-      
     </v-card-text>
 
     <!-- 버튼 부분 -->
@@ -106,34 +105,27 @@
 </template>
 
 <style>
-
 .searchbox{
   overflow: hidden;
 }
-
 .ingredient-container{
   max-height:100px;
   overflow: scroll;
 }
-
 .units-container{
   overflow: auto;
 }
-
 .ingreName{
   display: none;
   cursor: pointer;
 }
-
 .unitsName{
   display: none;
   cursor: pointer;
 }
-
 .visible{
   display: flex;
 }
-
 </style>
 
 <script>
@@ -278,6 +270,17 @@ export default{
     isRecipe: {
       type: Boolean,
     },
+    changeState: {
+      type: Boolean,
+    }
+  },
+  watch: {
+    changeState: function() {
+      let vm = this;
+      vm.name = "";
+      vm.amount = "";
+      vm.unit = "";
+    }
   },
   mounted(){
     const UserInfo = JSON.parse(localStorage.getItem("UserInfo"));

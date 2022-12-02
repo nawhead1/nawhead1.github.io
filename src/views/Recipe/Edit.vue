@@ -119,6 +119,7 @@
     >
       <add-ingredient-dialog
         :isRecipe='true'
+        :changeState="changeState"
         @add="add"
         @update="update"
         @hide="hideAddIngredientDialog"
@@ -222,6 +223,7 @@ export default{
       popupDialog: false,
       categoryDialog: false,
       editIngredientDialog: false,
+      changeState: true,
       editIngreID: -1,
 
       headerTitle: "",
@@ -325,6 +327,7 @@ export default{
     },
   // 재료추가 팝업창 메소드들
     showAddIngredientDialog() {
+      this.changeState = !this.changeState;
       this.addIngredientDialog = true;
     },
     hideAddIngredientDialog() {
