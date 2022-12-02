@@ -47,7 +47,15 @@
             </v-col>
           </v-row>
 
-          <div v-if="isExist">
+          <v-row v-if="!isSearchExist" justify="center">
+            <v-col cols="12">
+              <p style="text-align:center; font-size:1.2em;" class="mt-10">
+                {{emptyText}}
+              </p>
+            </v-col>
+          </v-row>
+
+          <div v-if="isExist & isSearchExist">
             <!-- 음식 v card -->
             <v-card height="100" class="mx-5 mb-5" v-for="item in recipes" :key="item.post_id" @click="toLookup(item.post_id)">
               <div class="d-flex align-center">
@@ -177,6 +185,8 @@ export default{
 
     //받아온 것이 없는 경우 체크
       isExist: true,
+    //검색결과 없으면 체크
+      isSearchExist : true,
     }
   },
   mounted() {
@@ -195,6 +205,8 @@ export default{
           console.log("reponse 길이: " + response.data.length);
           if(response.data.length == 0){
             vm.isExist = false;
+          } else {
+            vm.isExist = true;
           }
         }
       })
@@ -254,6 +266,11 @@ export default{
               vm.emptyText = "검색결과 레시피가 존재하지 않습니다.";
               for(let i = 0; response.data[i] != null; i++) {
                 vm.recipes.push(response.data[i]);
+              }
+              if(response.data.length == 0){
+                vm.isSearchExist = false;
+              } else {
+                vm.isSearchExist = true;
               }
             }
         })
@@ -316,13 +333,13 @@ export default{
       this.object = payload;
       if (this.object.name == "최근 순") {
         console.log("최근 순 선택");
-        this.sort_object.name = "최근 순";
+        this.sort_object.name = "최신글 순";
 
         console.log(this.sort_object.name);
         this.sortRecipeList(this.sort_object.name);
 
-      } else if (this.object.name == "조회 순") {
-        console.log("조회 순 선택");
+      } else if (this.object.name == "조회수 순") {
+        console.log("조회수 순 선택");
         this.sort_object.name = "조회수 순";
 
         console.log(this.sort_object.name);
