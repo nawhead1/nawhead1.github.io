@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 재료 추가 팝업창 -->
   <v-card>
     <!-- 재료 입력 부분 -->
     <v-card-text>
@@ -92,6 +92,7 @@
       </v-btn>
     </v-card-actions>
 
+    <!-- 토스트 메시지 -->
     <v-snackbar v-model="snackbar" timeout="3000">
       {{ snackbarContents }}
       <template v-slot:action="{ attrs }">
@@ -292,7 +293,6 @@ export default{
     if(this.isRecipe == true) this.title = "재료 선택";
     else if(this.isRecipe == false) this.title = "재료 추가";
     
-
     // 동적 검색 설정
     for (var i=0;i<this.ingredients.length;i++){
       this.$refs.ingreName[i].classList.remove('visible');
@@ -300,7 +300,6 @@ export default{
     for (var i=0;i<this.units.length;i++){
       this.$refs.unitsName[i].classList.remove('visible');
     }
-    
   },
   methods: {
     addIngre() {
@@ -371,7 +370,6 @@ export default{
       for (var i=0;i<this.units.length;i++){
         this.$refs.unitsName[i].classList.remove('visible');
       }
-      
     }
   }
 }

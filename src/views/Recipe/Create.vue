@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 레시피 게시글 등록 화면 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
@@ -11,6 +11,7 @@
             <div class="line mx-5"></div>
 
             <div class="px-10 d-flex align-center my-text">
+              <!-- 레시피 제목 부분 -->
               <span class="mr-16">레시피 제목</span>
               <v-divider vertical />
               <v-text-field
@@ -26,6 +27,7 @@
             <div class="line mx-5"></div>
 
             <div class="px-10 d-flex align-center my-text">
+              <!-- 레시피 종류(카테고리) 선택 부분 -->
               <span class="mr-16">레시피 종류</span>
               <v-divider vertical></v-divider>
               <v-btn @click="showCategoryDialog" class="ml-14">레시피 종류</v-btn>
@@ -35,6 +37,7 @@
             <div class="line mx-5"></div>
 
             <div class="px-10 d-flex align-center my-text">
+              <!-- 매운맛 단계 선택 부분 -->
               <span class="mr-16">매운맛 단계</span>
               <v-divider vertical></v-divider>
               <dropdown class="my-dropdown-toggle ml-15"
@@ -53,7 +56,7 @@
               <span class="ml-1 mr-14 my-text">식재료 및 양</span>
               <v-divider vertical class="mr-11" />
               <div class=ma-3>
-                <!-- 재료 나타날 v-for -->
+                <!-- 재료 목록 부분 -->
 			          <div v-for="(item,index) in ingredient" :key="item.name">
 			          	<span style="vertical-align: text-top" class="my-text">{{ item.name }} {{ item.amount }}{{ item.unit }}</span>
                   <v-btn @click="beforeEdit(item)" small text color="success pa-5">
@@ -68,6 +71,7 @@
               </div>
               
               <div class="d-flex">
+                <!-- 재료 추가 버튼 -->
                 <v-btn @click="showAddIngredientDialog" color="success pa-5" class="add-ingredient">
                   <v-icon>mdi-plus-circle-outline</v-icon>
                   <span>재료추가</span>
@@ -94,14 +98,14 @@
           </v-form>
 
           <div class="d-flex justify-end mr-5 pb-5">
-            <v-btn color="#AEBDCA" class="mr-5" @click="$router.go(-1)">등록취소</v-btn>
-            <v-btn color="#AEBDCA" class="mr-2" @click="addRecipe()">등록하기</v-btn>
+            <v-btn color="#AEBDCA" class="mr-5" @click="$router.go(-1)">등록취소</v-btn> <!-- 등록취소 버튼 -->
+            <v-btn color="#AEBDCA" class="mr-2" @click="addRecipe()">등록하기</v-btn> <!-- 등록하기 버튼 -->
           </div>
         </v-card>
       </v-col>
     </v-row>
 
-    <!-- 카테고리 팝업창 형식 -->
+    <!-- 카테고리 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="categoryDialog"
@@ -143,7 +147,7 @@
       />
     </v-dialog>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -155,12 +159,12 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>게시글 생성에 실패했습니다.</div>
         </template>
       </popup-dialog>
     </v-dialog>
 
+    <!-- 토스트 메시지 -->
     <v-snackbar v-model="snackbar" timeout="3000">
       {{ snackbarContents }}
       <template v-slot:action="{ attrs }">
@@ -177,17 +181,14 @@
 .line{
   border:1px solid #AEBDCA
 }
-
 .ingredients{
   min-height: 300px;
 }
-
 .add-ingredient{
   position: absolute;
   bottom: 5%;
   right: 5%;
 }
-
 .my-text{
   color: #42688e;
 }
@@ -195,7 +196,6 @@
   max-height: 100px;
   overflow: scroll;
 }
-
 </style>
 
 <script>
@@ -217,24 +217,27 @@ export default{
   },
   data () {
     return {
-      valid: true,
-
+    // 팝업창 용
       addIngredientDialog: false,
       popupDialog: false,
       categoryDialog: false,
       editIngredientDialog: false,
       changeState: true,
-      editIngreID: -1,
+      editIngreID: -1, // 재료 수정 선택된 재료의 인덱스 저장용
 
       id: -1,
       name: "",
       amount: -1,
       unit: "",
 
+    // 토스트 메시지
       snackbar: false,
       snackbarContents: "",
 
+    // 재료 정보 저장용
       ingredient: [],
+
+    // 매운맛 선택 드롭다운
       hotLevel: [
         { name: '0단계'},
         { name: '1단계'},
@@ -246,6 +249,9 @@ export default{
       hotLevelObject: {
         name: '0단계',
       },
+    
+    // 유효성 검사
+      valid: true,
       recipeTitle: null,
       title_rule: [
         v => !!v || '제목을 입력하세요.',

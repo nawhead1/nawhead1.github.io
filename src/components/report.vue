@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 신고 팝업창 -->
   <v-card>
     <!-- 제목 부분 -->
     <v-card-title class="justify-start">
@@ -32,7 +32,7 @@
       </v-btn>
     </v-card-actions>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -46,12 +46,10 @@
         @submit="checkDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div> {{ content }} </div>
         </template>
       </popup-dialog>
     </v-dialog>
-    <!-- 팝업창 형식 -->
 
   </v-card>
 </template>
@@ -92,7 +90,6 @@ export default{
       this.popupDialog = false
     },
     checkDialog(){ // 팝업창 버튼 클릭시
-      // 확인 버튼 클릭시 동작 걸기
       this.reportPost();
       this.hideDialog();
     },
@@ -130,7 +127,7 @@ export default{
     emitMethod(){
       this.$emit('hide');
     },
-    reportPost(){ // 신고 등록 로직으로 수정하기
+    reportPost(){ // 신고 등록 로직
         let vm = this;
         console.log("통합 신고 로직"); // 레시피->1, 댓글->-1, 요리사진->2
         const UserInfo = JSON.parse(localStorage.getItem("UserInfo"));

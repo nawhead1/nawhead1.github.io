@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 쪽지 열람 화면 -->
   <v-card>
     <!-- 상단 부분 -->
     <div class="d-flex justify-lg-space-between align-start pa-3">
@@ -20,7 +20,7 @@
       </div>
     </div>
     
-
+    <!-- 내용 부분 -->
     <v-card class="ma-4">
       <v-card-text class="text-left">
         <slot name="body">
@@ -28,7 +28,6 @@
         </slot>
       </v-card-text>
     </v-card>
-    <!-- 내용 부분 -->
 
     <!-- 버튼 부분 -->
     <v-card-actions class="justify-center mr-2 pb-4">
@@ -50,7 +49,7 @@
       </v-btn>
     </v-card-actions>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -64,7 +63,6 @@
         @submit="checkDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div> {{ content }} </div>
         </template>
       </popup-dialog>
@@ -127,7 +125,6 @@ export default{
       this.popupDialog = false
     },
     checkDialog(){ // 팝업창 버튼 클릭시
-      // 확인 버튼 클릭시 동작 걸기
       this.deleteMail();
       this.hideDialog();
     },

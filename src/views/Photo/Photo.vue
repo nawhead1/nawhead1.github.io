@@ -1,16 +1,18 @@
-<template>
+<template> <!-- 요리 사진 게시판 화면 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
         <v-card min-height="calc(100vh - 120px)" color="#f5efe6">
 
           <div class="recipe-top d-flex justify-space-between align-center pa-5">
+            <!-- 제목 -->
             <span style="color:#7895B2; font-weight:900; font-size:1.3em;">요리 사진 게시판</span>
+            <!-- 정렬 선택 -->
             <dropdown class="my-dropdown-toggle my-5 "
               :options="search_standard" 
               :selected= currentSearchOption
               v-on:updateOption="methodToRunOnSelect" 
-              :placeholder="'검색 기준'"
+              :placeholder="'정렬 기준'"
               :closeOnOutsideClick="true"
             ></dropdown>
           </div>
@@ -22,23 +24,25 @@
 
           <v-row justify="center">
             <v-col cols="8">
+              <!-- 요리 사진 게시글 -->
               <v-card height="400" v-for="item in photo" :key="item.post_id" class="my-10" @click="toLookup(item.post_id)">
                 <v-row>
                   <v-col class="d-flex justify-space-between">
                     <div class="pl-5">
-                      <v-card-title>{{item.nickname}}</v-card-title>
-                      <v-card-subtitle>{{item.upload_time.split(/[T]/)[0]}}</v-card-subtitle>
+                      <v-card-title>{{item.nickname}}</v-card-title> <!-- 작성자 닉네임 -->
+                      <v-card-subtitle>{{item.upload_time.split(/[T]/)[0]}}</v-card-subtitle> <!-- 작성 시간 -->
                     </div>
                     <div>
-                      <v-icon class="pa-6" large>
+                      <v-icon class="pa-6" large> <!-- 좋아요 아이콘 -->
                         mdi-thumb-up-outline
                       </v-icon>
-                      <span class="pr-6 like-count">{{item.like_count}}</span>
+                      <span class="pr-6 like-count">{{item.like_count}}</span> <!-- 좋아요 수 -->
                     </div>
                   </v-col>
                 </v-row>
 
                 <div class="mx-6 mt-3">
+                  <!-- 사진 -->
                   <v-img
                     max-height="250"
                     contain
@@ -62,7 +66,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -74,7 +78,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}</div>
         </template>
       </popup-dialog>
@@ -96,7 +99,6 @@
   right: 5%;
   z-index: 9;
 }
-
 </style>
 
 <script>
@@ -123,20 +125,20 @@ export default{
       photo: [],
       photoID: null,
 
-    //드롭다운 (우혁이 맞음?)
+    // 정렬 드롭다운
       search_standard: [
           {name: '최근 순'},
           {name: '좋아요 순'}
       ],
-
       currentSearchOption : {
         name: "최근 순"
       },
-
       search_object: {
         name: "정렬 기준",
       },
+    // 페이지
       page: 1,
+    // 페이지 수
       pageLength: null,
     };
   },
@@ -173,12 +175,12 @@ export default{
     hideDialog() { // 팝업창 숨기기
       this.popupDialog = false;
     },
-    requestFailPopup() { // 실패
+    requestFailPopup() { // 요청 실패
       this.headerTitle = "요청 실패";
       this.content1 = "사진 게시글 요청을 실패하였습니다.";
       this.showDialog();
     },
-    sortRequestFailPopup() { // 정렬 실패
+    sortRequestFailPopup() { // 정렬 요청 실패
       this.headerTitle = "서버 오류";
       this.content1 = "게시글 요청을 실패하였습니다.";
       this.showDialog();
@@ -241,6 +243,7 @@ export default{
       }
     },
 
+  // 페이지네이션
     handlePage(){
       let vm = this;
 

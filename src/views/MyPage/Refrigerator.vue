@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 냉장고(보유재료 조회) 화면 -->
   <v-container>
     <v-layout>
       <v-row justify="center">
@@ -23,7 +23,7 @@
                   
                     <!-- 재료 있는 경우 -->
                     <v-card-text v-if="!isEmpty">
-                      <!-- 재료 v card -->
+                      <!-- 재료 목록 -->
                       <div v-for="item in refrigerators" :key="item.id" class="ingre-card">
                         <!-- 7일 이상 남음 -->
                         <div v-if="item.expireDate > (7*(1000*60*60*24)) && item.expireDate != null" class="ingre-green">
@@ -47,7 +47,7 @@
                         </div>
                         <!-- 3~7일 남음 -->
                         <div v-if="item.expireDate > (3*(1000*60*60*24)) && item.expireDate <= (7*(1000*60*60*24)) && item.expireDate != null" class="ingre-yellow">
-                          <!-- 7일 이상 남은 재료 -->
+                          <!-- 3~7일 남은 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
                             <span class="mr-3 my-2" style="font-size:1.8em">{{item.amount}}{{item.unit}}</span>
@@ -67,7 +67,7 @@
                         </div>
                         <!-- 0~3일 남음 -->
                         <div v-if="item.expireDate > 0 && item.expireDate <= (3*(1000*60*60*24)) && item.expireDate != null" class="ingre-red">
-                          <!-- 7일 이상 남은 재료 -->
+                          <!-- 0~3일 남은 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
                             <span class="mr-3 my-2" style="font-size:1.8em">{{item.amount}}{{item.unit}}</span>
@@ -87,7 +87,7 @@
                         </div>
                         <!-- 유통기한 지남 -->
                         <div v-if="item.expireDate <= 0 && item.expireDate != null" class="ingre-black">
-                          <!-- 7일 이상 남은 재료 -->
+                          <!-- 유통기한 지난 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
                             <span class="mr-3 my-2" style="font-size:1.8em">{{item.amount}}{{item.unit}}</span>
@@ -107,7 +107,7 @@
                         </div>
                         <!-- 유통기한 없음 -->
                         <div v-if="item.expireDate == null">
-                          <!-- 7일 이상 남은 재료 -->
+                          <!-- 유통기한 입력 안한 재료 -->
                           <div class="d-flex justify-space-between">
                             <span class="ml-3 my-2" style="font-size:1.8em">{{item.name}}</span>
                             <span class="mr-3 my-2" style="font-size:1.8em">{{item.amount}}{{item.unit}}</span>
@@ -138,7 +138,7 @@
       </v-row>
     </v-layout>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -152,7 +152,6 @@
         @submit="deleteIngre"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}</div>
         </template>
       </popup-dialog>
@@ -187,6 +186,7 @@
       />
     </v-dialog>
 
+    <!-- 토스트 메시지 -->
     <v-snackbar v-model="snackbar" timeout="3000">
       {{ snackbarContents }}
       <template v-slot:action="{ attrs }">
@@ -198,8 +198,6 @@
 
   </v-container>
 </template>
-
-// Pagination
 
 <script>
 import herokuAPI from '@/api/heroku.js';
@@ -215,9 +213,11 @@ export default{
   },
   data(){
     return{
+    // 토스트 메시지
       snackbar: false,
       snackbarContents: "",
 
+    // 팝업 관련
       popupDialog: false,
       headerTitle: "",
       content1: "",
@@ -230,10 +230,14 @@ export default{
       unit: "",
       addIngredientDialog: false,
       editIngredientDialog: false,
+
+    // 재료 리스트 저장
       refrigerators: [],
+
+    // 재료 없는지 확인
       isEmpty: false,
 
-      //현재 날짜를 저장하는 변수
+    //현재 날짜 저장
       todayDate : null,
     }
   },
@@ -241,11 +245,10 @@ export default{
     // 냉장고 조회
     const UserInfo = JSON.parse(localStorage.getItem("UserInfo"));
     let vm = this;
-
     // 현재 날짜 저장하는 코드
     let now = new Date();
     console.log(now);
-
+    // 보유 재료 요청
     herokuAPI.refrigeratorLookup(UserInfo.nickname)
       .then(function(response) {
         console.log("응답 온거", response);
@@ -258,7 +261,6 @@ export default{
               } else {
                 response.data[i].expireDate = null;
               }
-              
               vm.refrigerators.push(response.data[i]);
             }
           }
@@ -284,7 +286,7 @@ export default{
     hideDialog() { // 팝업창 숨기기
       this.popupDialog = false;
     },
-    deletePopup(click_id) {
+    deletePopup(click_id) { // 재료 삭제 확인 팝업
       this.headerTitle = "재료 삭제";
       this.content1 = "해당 식재료를 삭제하시겠습니까?";
       this.btn1Title = "취소";
@@ -293,28 +295,28 @@ export default{
       this.id = click_id;
       this.showDialog();
     },
-    deleteFailPopup() {
+    deleteFailPopup() { // 삭제 실패 팝업
       this.headerTitle = "삭제 실패";
       this.content1 = "삭제 요청에 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    requestFailPopup() {
+    requestFailPopup() { // 보유 재료 조회 실패 팝업
       this.headerTitle = "서버 오류";
       this.content1 = "보유 재료 조회에 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    addRequestFailPopup() {
+    addRequestFailPopup() { // 재료 추가 요청 실패 팝업
       this.headerTitle = "요청 실패";
       this.content1 = "재료 추가 요청에 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    deleteIngre() {
+    deleteIngre() { // 재료 삭제 과정
       let vm = this;
       const deleteTarget = JSON.stringify ({ "id": this.id });
       herokuAPI.refrigeratorDelete(deleteTarget)
@@ -338,14 +340,15 @@ export default{
     },
 
   // 재료추가 팝업창 메소드들
-    showAddIngredientDialog() {
+    showAddIngredientDialog() { // 재료추가 팝업창 보이기
       this.addIngredientDialog = true;
     },
-    hideAddIngredientDialog() {
+    hideAddIngredientDialog() { // 재료추가 팝업창 숨기기
       this.addIngredientDialog = false;
     },
-    add(ingre) {
+    add(ingre) { // 재료 추가 과정
       let vm = this;
+      // 이미 존재하는 재료 제외
       var index = this.refrigerators.findIndex(e => e.name === ingre.name);
       if(index != -1) {
         vm.snackbarContents = "이미 추가한 재료입니다."
@@ -373,20 +376,20 @@ export default{
           });
     },
   // 재료수정 팝업창 메소드들
-    showEditIngredientDialog() {
+    showEditIngredientDialog() { // 재료 수정 팝업창 보이기
       this.editIngredientDialog = true;
     },
-    hideEditIngredientDialog() {
+    hideEditIngredientDialog() { // 재료 수정 팝업창 숨기기
       this.editIngredientDialog = false;
     },
-    beforeEdit(object) {
+    beforeEdit(object) { // 수정 버튼 클릭시
       this.id = object.id;
       this.name = object.name;
       this.amount = object.amount;
       this.unit = object.unit;
       this.showEditIngredientDialog();
     },
-    update() {
+    update() { // 새로고침
       this.$router.go();
     },
   }
@@ -402,31 +405,25 @@ export default{
     font-size: 1.4em;
     color: #7895b2;
   }
-
   .ingre-card {
     border: 1px solid rgb(182, 182, 182);
     border-radius: 10px;
     margin-top: 10px;
   }
-
   .ingre-green {
     background-color: rgb(93, 232, 93);
     border-radius: 9px;
   }
-
   .ingre-yellow {
     background-color: rgb(255, 255, 117);
     border-radius: 9px;
   }
-
   .ingre-red {
     background-color: rgb(255, 161, 161);
     border-radius: 9px;
   }
-
   .ingre-black {
     background-color: rgb(179, 179, 179);
     border-radius: 9px;
   }
-
 </style>

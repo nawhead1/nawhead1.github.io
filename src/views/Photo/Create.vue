@@ -1,52 +1,50 @@
-<template>
+<template> <!-- 요리 사진 등록 화면 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
         <v-card min-height="800" fill-height color="#f5efe6">
+          <!-- 요리 사진 게시판으로 돌아가기 버튼 -->
           <v-btn to="/photo" text class="ml-5 mt-5"> - 요리 사진 게시판</v-btn>
           <v-row>
-              <v-col>
-                <v-card fill-height color="#f5efe6" class="mt-10" flat>
-                  <v-row>
-                    <v-col cols="3" class="py-0 my-0">
-                      <v-card fill-height color="#f5efe6" flat>
-                        <v-card-title primary-title style="color:#7895B2">
-                          작성자
-                        </v-card-title>
-                      </v-card>
-                    </v-col>
-                    <v-col class="py-0 my-0">
-                      <v-card fill-height color="#f5efe6" flat>
-                        <!-- 이름 넣어주세요 -->
-                        <v-card-title primary-title >
-                          {{nickname}}
-                        </v-card-title>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="3" class="py-0 my-0">
-                      <v-card fill-height color="#f5efe6" flat style="color:#7895B2">
-                        <v-card-title>
-                          작성일
-                        </v-card-title>
-                        
-                      </v-card>
-                    </v-col>
-                    <v-col class="py-0 my-0">
-                      <v-card fill-height color="#f5efe6" flat>
-                        <!-- 날짜 넣어주세요 -->
-                        <v-card-title>
-                          {{upload_time}}
-                        </v-card-title>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </v-col>
+            <v-col>
+              <v-card fill-height color="#f5efe6" class="mt-10" flat>
+                <v-row>
+                  <v-col cols="3" class="py-0 my-0">
+                    <v-card fill-height color="#f5efe6" flat>
+                      <v-card-title primary-title style="color:#7895B2">
+                        작성자
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                  <v-col class="py-0 my-0">
+                    <v-card fill-height color="#f5efe6" flat>
+                      <v-card-title primary-title >
+                        {{nickname}} <!-- 작성자 닉네임 -->
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="3" class="py-0 my-0">
+                    <v-card fill-height color="#f5efe6" flat style="color:#7895B2">
+                      <v-card-title>
+                        작성일
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                  <v-col class="py-0 my-0">
+                    <v-card fill-height color="#f5efe6" flat>
+                      <v-card-title>
+                        {{upload_time}} <!-- 작성일 -->
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-col>
           </v-row>
           
-          <v-row >
+          <v-row> <!-- 사진 미리보기 -->
             <v-col justify="center">
               <v-card v-if="preview" >
                 <v-img :src="preview" class="img-fluid" contain/>
@@ -60,7 +58,7 @@
 
           <v-row>
             <v-col offset="5" col="2">
-              <v-btn x-large color="#7895B2" @click="addPhoto">등록하기</v-btn>
+              <v-btn x-large color="#7895B2" @click="addPhoto">등록하기</v-btn> <!-- 등록하기 버튼 -->
             </v-col>
           </v-row>
 
@@ -68,7 +66,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -86,6 +84,7 @@
       </popup-dialog>
     </v-dialog>
 
+    <!-- 토스트 메시지 -->
     <v-snackbar v-model="snackbar" timeout="3000">
       {{ snackbarContents }}
       <template v-slot:action="{ attrs }">
@@ -165,23 +164,20 @@ export default{
       this.preview_list = [];
     },
 
-    addPhoto() {
+    addPhoto() { // 요리사진 게시글 등록 과정
       let vm = this;
-      if(vm.image == null) {
+      if(vm.image == null) { // 사진이 없는 경우
         vm.snackbarContents = "사진을 추가해주세요.";
         vm.snackbar = true;
         return;
       }
-      const newPhoto = JSON.stringify (
-        {
+      const newPhoto = JSON.stringify ({
 	        "post_id": null,
           "photo_link": this.image.split(/[\,]/)[1],
           "like_count":0,
           "upload_time": null,
           "nickname":this.nickname
-        }
-      );
-      
+        });
       herokuAPI.photoAdd(newPhoto) 
         .then(function (response) {
           console.log("전송 정보",  newPhoto);
@@ -202,5 +198,4 @@ export default{
     }
   }
 }
-
 </script>

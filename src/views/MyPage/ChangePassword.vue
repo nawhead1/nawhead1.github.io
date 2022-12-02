@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 비밀번호 변경 화면 -->
   <v-container>
     <v-layout>
       <v-row justify="center">
@@ -35,7 +35,6 @@
                         ></v-text-field>
                       </v-form>
                     </v-col>
-
                     
                     <v-col>
                       <v-row justify="center">
@@ -58,7 +57,7 @@
       </v-row>
     </v-layout>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -70,7 +69,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div> {{ content1 }} </div>
         </template>
       </popup-dialog>

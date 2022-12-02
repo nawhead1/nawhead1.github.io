@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 마이페이지 내가 작성한 요리 사진 게시글 목록 조회 화면 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
@@ -8,7 +8,7 @@
             <span style="color:#7895B2; font-weight:900; font-size:1.3em;">내가 올린 사진</span>
           </div>
 
-          <v-row v-if="!isExist" justify="center">
+          <v-row v-if="!isExist" justify="center"> <!-- 내가 작성한 요리 사진 게시글이 없는 경우 -->
             <v-col cols="12">
               <p style="text-align:center; font-size:1.2em;" class="mt-10">
                 작성한 요리 사진 게시글이 없습니다.
@@ -50,7 +50,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -62,7 +62,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}</div>
         </template>
       </popup-dialog>
@@ -147,7 +146,7 @@ export default{
     hideDialog() { // 팝업창 숨기기
       this.popupDialog = false;
     },
-    requestFailPopup() { // 실패
+    requestFailPopup() { // 요청 실패
       this.headerTitle = "사진 요청 실패";
       this.content1 = "사진 게시글 요청에 실패했습니다.";
       this.showDialog();

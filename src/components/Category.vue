@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 카테고리 선택 팝업창 -->
   <v-card class="overflow-y-auto">
 
     <v-card-title class="justify-start">

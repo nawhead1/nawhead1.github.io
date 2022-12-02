@@ -1,6 +1,7 @@
-<template>
+<template> <!-- 마이페이지 화면 -->
   <v-container>
     <v-layout>
+      <!-- 내 활동 관련 버튼들 -->
       <v-col offset="1" cols="10">
         <v-card color="#f5efe6" class="py-2">
           <v-card-title class="pl-10 my-text">나의 활동</v-card-title>
@@ -22,6 +23,7 @@
     </v-layout>
 
     <v-layout>
+      <!-- 냉장고 버튼 -->
       <v-col offset="1" cols="5">
         <v-card color="#f5efe6" class="py-2">
           <v-card-title class="pl-10 my-text">냉장고</v-card-title>
@@ -31,7 +33,7 @@
         </v-card>
       </v-col>
 
-
+      <!-- 쪽지함 버튼 -->
       <v-col cols="5">
         <v-card color="#f5efe6" class="py-2">
           <v-card-title class="pl-10 my-text">쪽지함</v-card-title>
@@ -44,6 +46,7 @@
     </v-layout>
 
     <v-layout>
+      <!-- 닉네임 / 비밀번호 변경 버튼 -->
       <v-col offset="1" cols="10" class="py-2">
         <v-card color="#f5efe6" class="py-2">
           <v-card-title class="ml-10 my-text">계정 관리</v-card-title>
@@ -53,13 +56,10 @@
           <v-card-actions class="ml-15">
             <v-btn text @click="changePW()" color="#7895B2">비밀번호 변경</v-btn>
           </v-card-actions>
-          
         </v-card>
       </v-col>
     </v-layout>
 
-
-    <!-- <v-btn @click="changePW">비밀번호 변경</v-btn> -->
   </v-container>
 </template>
 
@@ -67,7 +67,6 @@
 .my-text{
   color: #7895B2;
 }
-
 </style>
 
 <script>
@@ -76,11 +75,11 @@ import router from '@/router/index.js';
 export default {
   data() {
     return {
-      myphotos: [],
-      myrecipes: [],
+      
     };
   },
   methods: {
+  // 각 버튼별 링크
     changePW() {
       router.push({
         path: "/email-auth/1",

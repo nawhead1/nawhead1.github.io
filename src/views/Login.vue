@@ -1,10 +1,10 @@
-<template>
+<template> <!-- 로그인 화면 -->
   <v-container>
 
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-row>
         <v-col cols="4" offset="4">
-          <v-card-title style="justify-content: center">로그인</v-card-title>
+          <v-card-title style="justify-content: center">로그인</v-card-title> <!-- 제목 -->
         </v-col>
       </v-row>
 
@@ -15,7 +15,7 @@
       </v-row>
 
       <v-row>
-        <v-col cols="4" offset="4">
+        <v-col cols="4" offset="4"> <!-- 아이디 입력 부분 -->
           <v-text-field 
             v-model="info.id" 
             label="아이디"
@@ -24,7 +24,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="4" offset="4">
+        <v-col cols="4" offset="4"> <!-- 비밀번호 입력 부분 -->
           <v-text-field 
             v-model="info.pw" 
             label="비밀번호"
@@ -34,15 +34,15 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="3" offset="4">
+        <v-col cols="3" offset="4"> <!-- 자동로그인 체크박스 -->
           <v-checkbox v-model="info.al" label="자동로그인"></v-checkbox>
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="auto">
+        <v-col cols="auto"> <!-- 회원가입 버튼 -->
           <v-btn @click="signup">회원가입</v-btn>
         </v-col>
-        <v-col cols="2">
+        <v-col cols="2"> <!-- 로그인 버튼 -->
           <v-btn @click="login" style="width: 100%">로그인</v-btn>
         </v-col>
       </v-row>
@@ -55,7 +55,7 @@
 
     </v-form>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -68,12 +68,12 @@
         @submit="checkDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>아이디 또는 비밀번호를<br> 잘못 입력했습니다.</div>
         </template>
       </popup-dialog>
     </v-dialog>
     
+    <!-- 토스트 메시지 -->
     <v-snackbar v-model="snackbar" timeout="3000">
       {{ snackbarContents }}
       <template v-slot:action="{ attrs }">
@@ -97,12 +97,14 @@ export default{
   },
   data(){
     return{
-      valid: true,
+    // 팝업창 정보 용
       popupDialog: false,
 
+    // 토스트 메시지 용
       snackbar: false,
       snackbarContents: "",
 
+    // 입력 정보 저장
       info: {
         id: null,
         pw: null,
@@ -110,6 +112,7 @@ export default{
       },
 
     // 유효성 검사
+      valid: true,
       id_rule: [
         v => !!v || '아이디를 입력하세요.',
       ],
@@ -126,7 +129,6 @@ export default{
       this.popupDialog = false
     },
     checkDialog(){ // 팝업창 버튼 클릭시
-      // 확인 버튼 클릭시 동작 걸기
       this.hideDialog();
     },
     login(){

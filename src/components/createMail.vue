@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 메일 등록 팝업창 -->
   <v-card class="overflow-y-auto">
     <!-- 제목 부분 -->
     <v-card-title class="justify-start">
@@ -64,7 +64,7 @@
       </v-btn>
     </v-card-actions>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -76,7 +76,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div> 쪽지 전송에 실패했습니다. </div>
         </template>
       </popup-dialog>

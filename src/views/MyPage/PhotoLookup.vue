@@ -1,12 +1,10 @@
-<template>
+<template> <!-- 마이페이지 요리사진 게시글 열람 화면, 요리사진 열람 화면과 거의 동일 -->
   <v-container>
-  
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
         <v-card height="md-800 xl-1000" color="#f5efe6">
           <v-btn text @click="$router.go(-1)" class="ml-5 mt-5"> - 뒤로가기</v-btn>
-          <!-- 사용자 정보, 작성일 -->
-          
+            <!-- 사용자 정보, 작성일 -->
             <v-row>
               <v-col>
                 <v-card fill-height color="#f5efe6" class="mt-10" flat>
@@ -20,7 +18,6 @@
                     </v-col>
                     <v-col class="py-0 my-0">
                       <v-card fill-height color="#f5efe6" flat>
-                        <!-- 이름 넣어주세요 -->
                         <v-card-title primary-title >
                           {{ requestPhoto.nickname }}
                         </v-card-title>
@@ -38,7 +35,6 @@
                     </v-col>
                     <v-col class="py-0 my-0">
                       <v-card fill-height color="#f5efe6" flat>
-                        <!-- 날짜 넣어주세요 -->
                         <v-card-title primary-title>
                           {{ requestPhoto.upload_time.split(/[T]/)[0] }}
                         </v-card-title>
@@ -62,22 +58,19 @@
               <v-col cols="2" class="d-flex align-end">
                 <v-row justify="start">
                   <div class=".buttons">
-                    <!-- 삭제 버튼 여기 있음 -->
-                    <v-btn v-if="isMine" @click="deletePopup" icon x-large>  <!--@click="deletePhoto"-->
+                    <v-btn v-if="isMine" @click="deletePopup" icon x-large>  <!-- 삭제 버튼 -->
                       <v-icon x-large>mdi-delete-outline</v-icon>
                       <div>삭제</div>
                     </v-btn>
                     
                     <v-card height="20" color="#f5efe6" flat></v-card>
-                    <!-- 쪽지 버튼 여기 있음 -->
-                    <v-btn v-if="!isMine" @click="showMailCreate" icon x-large>
+                    <v-btn v-if="!isMine" @click="showMailCreate" icon x-large> <!-- 쪽지 버튼 -->
                       <v-icon x-large>mdi-email-arrow-right-outline</v-icon>
                       <div>쪽지</div>
                     </v-btn>
                     
                     <v-card height="20" color="#f5efe6" flat></v-card>
-                    <!-- 신고 버튼 여기 있음 -->
-                    <v-btn v-if="!isMine" @click="showReportDialog" icon x-large>
+                    <v-btn v-if="!isMine" @click="showReportDialog" icon x-large> <!-- 신고 버튼 -->
                       <v-icon x-large>mdi-alert-octagon</v-icon>
                       <div>신고</div>
                     </v-btn>
@@ -90,7 +83,7 @@
 
             <v-row justify="center">
               <v-card color="#f5efe6" height="50" flat >
-                <!-- 좋아요 버튼 여기 있음 -->
+                <!-- 좋아요 버튼 -->
                 <v-btn @click="likePhoto" icon x-large>
                   <v-icon x-large>mdi-thumb-up-outline</v-icon>
                   <div v-if="!isLikedAfter">좋아요</div>
@@ -99,7 +92,7 @@
               </v-card>
             </v-row>
 
-            <!-- 좋아요 수 여기 있음 -->
+            <!-- 좋아요 수 -->
             <v-row justify="center" class="mt-10 thumbs">
               좋아요 수 {{ requestPhoto.like_count }}
             </v-row>
@@ -107,7 +100,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -121,7 +114,6 @@
         @submit="checkDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}<br>{{ content2 }}</div>
         </template>
       </popup-dialog>
@@ -139,7 +131,7 @@
       />
     </v-dialog>
 
-    <!-- 신고 팝업창 형식 -->
+    <!-- 신고 팝업창 -->
     <v-dialog
       max-width="400"
       v-model="reportDialog"

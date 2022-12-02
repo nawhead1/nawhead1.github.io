@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 좋아요 누른 요리 사진 목록 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
@@ -8,6 +8,7 @@
             <span style="color:#7895B2; font-weight:900; font-size:1.3em;">좋아요 누른 사진</span>
           </div>
 
+          <!-- 좋아요 누른 요리 사진이 없는 경우 -->
           <v-row v-if="!isExist" justify="center">
             <v-col cols="12">
               <p style="text-align:center; font-size:1.2em;" class="mt-10">
@@ -50,7 +51,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -62,7 +63,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}</div>
         </template>
       </popup-dialog>

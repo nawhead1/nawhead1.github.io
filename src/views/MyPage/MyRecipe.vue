@@ -1,10 +1,9 @@
-<template>
+<template> <!-- 마이페이지 내가 작성한 게시글 목록 조회, 레시피 게시판에서 몇가지 기능이 빠진 형태 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
-        <!-- 요리 직접 검색과 카테고리 선택 -->
+        <!-- 요리 직접 검색만 -->
         <v-card min-height="70" color="#f5efe6" class="mb-3">
-          <!-- 요리 검색 윗줄 -->
           <div class="find-cook flex align-end mb-2">
             <span class="my-0 ml-5">요리 이름</span>
             <v-text-field
@@ -20,10 +19,9 @@
         </v-card>
 
         <v-card min-height="calc(100vh - 202px)" color="#f5efe6">
-          <!-- 상단 레시피 게시판 글씨랑 정렬기준 드롭다운 -->
+          <!-- 상단부 내가 쓴 레시피 글씨, 정렬기준 드롭다운 -->
           <div class="recipe-top d-flex justify-space-between align-center pa-5">
             <span style="color:#7895B2; font-weight:900; font-size:1.3em;">내가 쓴 레시피</span>
-            <!-- 드롭다운으로 대체할 예정 -->
             <dropdown class="my-dropdown-toggle"
               :options="sort_standard" 
               :selected="sort_object" 
@@ -33,7 +31,7 @@
             </dropdown>
           </div>
 
-          <v-row v-if="!isExist" justify="center">
+          <v-row v-if="!isExist" justify="center"> <!-- 내가 쓴 레시피가 없는 경우 -->
             <v-col cols="12">
               <p style="text-align:center; font-size:1.2em;" class="mt-10">
                 {{emptyText}}
@@ -41,7 +39,7 @@
             </v-col>
           </v-row>
 
-          <v-row v-if="!isSearchExist" justify="center">
+          <v-row v-if="!isSearchExist" justify="center"> <!-- 검색 결과 레시피가 없는 경우 -->
             <v-col cols="12">
               <p style="text-align:center; font-size:1.2em;" class="mt-10">
                 {{emptyText}}
@@ -50,10 +48,9 @@
           </v-row>
 
           <div v-if="isExist & isSearchExist">
-            <!-- 음식 v card -->
+            <!-- 음식 목록 -->
             <v-card height="100" class="mx-5 mb-5" v-for="item in recipes" :key="item.post_id" @click="toLookup(item.post_id)">
               <div class="d-flex align-center">
-                <!-- 제목을 받아와서 넣으시면 됩니다. -->
                 <span class="mx-10 py-3" style="font-size:1.1em; font-weight:600; color:#7895B2">{{item.title}}</span>
                 <v-icon color="red" v-if="item.degree_of_spicy>=1">mdi-chili-mild</v-icon>
                 <v-icon color="red" v-if="item.degree_of_spicy>=2">mdi-chili-mild</v-icon>
@@ -64,17 +61,12 @@
               <div style="border: 0.5px solid #7895B2;" class="mx-5"></div>
               <div class="d-flex align-center justify-space-between">
                 <div style="color:#7895B2" class="ml-10 py-3">
-                  <!-- 날짜를 받아와서 넣으시면 됩니다. -->
                   <span class="mr-3">{{item.upload_time.split(/[T]/)[0]}}</span>
-                  <!-- 이름을 받아와서 넣으시면 됩니다 -->
                   <span>{{item.nickname}}</span>
                 </div>
                 <div class="mr-6">
-                  <!-- 좋아요 받아와서 넣으시면 됩니다. -->
                   <v-icon color="red">mdi-thumb-up-outline</v-icon> {{item.like_count}}
-                  <!-- 댓글 가져와서 넣으시면 됩니다. -->
                   <v-icon color="blue" class="ml-2">mdi-comment-processing-outline</v-icon> {{item.comment_count}}
-                  <!-- 조회수 가져와서 넣으시면 됩니다. -->
                   <v-icon color="green" class="ml-2">mdi-eye-outline</v-icon> {{item.views}}
                 </div>
               </div>
@@ -85,7 +77,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -97,7 +89,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}</div>
         </template>
       </popup-dialog>

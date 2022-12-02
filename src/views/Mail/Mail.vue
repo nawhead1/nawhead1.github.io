@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 쪽지함 화면 -->
   <v-container>
 
     <v-row justify="center">
@@ -8,7 +8,6 @@
             쪽지함
           </div>
 
-          <!-- 불러오는 메일 v-for 입니다. -->
           <v-card min-height="100" color="#fefefe" class="my-5 mx-16" @click="showMailLookup(index)" v-for="(val,index) in mails" :key="val.mail_id">
             <v-card-title primary-title class="mb-0">
               {{val.title}}
@@ -65,26 +64,21 @@
 </template>
 
 <style>
-
 .mailbox-title{
   font-size: 2.3em;
 }
-
 .my-text{
   color:#7895B2;
 }
-
 .write-btn{
   position: fixed;
   bottom: 10%;
   right: 5%;
 }
-
 </style>
 
 <script>
 import herokuAPI from '@/api/heroku.js';
-import router from '@/router/index.js';
 import LookupMailDialog from '@/components/lookupMail.vue';
 import CreateMailDialog from '@/components/createMail.vue';
 

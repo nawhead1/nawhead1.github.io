@@ -1,13 +1,13 @@
-<template>
+<template> <!-- 레시피 열람 화면 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
         <!-- 가장 바깥쪽 카드 -->
         <v-card min-height="1000" color="#f5efe6" style="position:relative">
           <div class="d-flex justify-space-between align-end">
-            <!-- 뒤로 돌아가기 버튼 -->
+            <!-- 레시피 게시판으로 돌아가기 버튼 -->
             <v-btn text to="/recipe" class="ml-5 mt-5"> - 레시피 게시판</v-btn>
-            <v-btn text class="mr-5" @click="menuButtonOnClickMethod">
+            <v-btn text class="mr-5" @click="menuButtonOnClickMethod"> <!-- 메뉴 버튼 -->
               <v-icon>mdi-menu</v-icon>
             </v-btn>
 
@@ -289,14 +289,12 @@
 .my-comment{
   max-width:500px;
 }
-
 .menu-container {
   display: none;
   position: absolute;
   right: 0;
   top: 6%;
 }
-
 .menu-item {
   display: none;
   width: 64px;
@@ -308,20 +306,16 @@
   padding-top: 5px;
   border: 1px solid black;
   border-radius: 4px;
-
   background-color:#fefefe;
   cursor: pointer;
 }
-
 .menu-item:hover{
   background-color:#8bacc9;
   transition: 0.5s;
 }
-
 .mail-btn{
   margin-top: -24px;
 }
-
 .visible{
   display: block;
 }
@@ -489,7 +483,7 @@ export default{
     hideDialog() { // 팝업창 숨기기
       this.popupDialog = false;
     },
-    deletePopup() {
+    deletePopup() { // 게시글 삭제 확인 팝업
       this.headerTitle = "게시글 삭제";
       this.content1 = "게시글을 삭제하시겠습니까?";
       this.btn1Title = "취소";
@@ -498,7 +492,7 @@ export default{
       this.isRecipeDelete = true;
       this.showDialog();
     },
-    commentDeletePopup(id) {
+    commentDeletePopup(id) { // 댓글 삭제 확인 팝업
       this.deleteCommentID = id;
       this.headerTitle = "댓글 삭제";
       this.content1 = "댓글을 삭제하시겠습니까?";
@@ -508,21 +502,21 @@ export default{
       this.isRecipeDelete = false;
       this.showDialog();
     },
-    deleteFailPopup() {
+    deleteFailPopup() { // 게시글 삭제 실패 팝업
       this.headerTitle = "게시글 삭제";
       this.content1 = "삭제에 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    commentDeleteFailPopup() {
+    commentDeleteFailPopup() { // 댓글 삭제 실패 팝업
       this.headerTitle = "댓글 삭제";
       this.content1 = "댓글 삭제를 실패했습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    ingreFailPopup() {
+    ingreFailPopup() { // 없는 재료 요청 실패 팝업
       this.headerTitle = "재료 요청 실패";
       this.content1 = "없는 재료를 가져오는데 실패했습니다.";
       this.content2 = "";
@@ -530,7 +524,7 @@ export default{
       this.btn2 = false;
       this.showDialog();
     },
-    decreaseAmountFailPopup() {
+    decreaseAmountFailPopup() { // 재료 계산 요청 실패 팝업
       this.headerTitle = "저장 실패";
       this.content1 = "감산결과를 저장하는데 실패했습니다.";
       this.content2 = "";
@@ -538,15 +532,14 @@ export default{
       this.btn2 = false;
       this.showDialog();
     },
-    likeFailPopup(text) {
+    likeFailPopup(text) { // 좋아요 등록, 취소 실패 팝업
       this.headerTitle = "서버 오류";
       this.content1 = '"좋아요" '+text+"를 실패하였습니다.";
-      this.btn1Title = "취소";
-      this.btn2Title = "삭제";
-      this.btn2 = true;
+      this.btn1Title = "확인";
+      this.btn2 = false;
       this.showDialog();
     },
-    commentInvalidPopup() {
+    commentInvalidPopup() { // 댓글 작성란 비었음 알림 팝업
       this.headerTitle = "댓글 작성";
       this.content1 = "댓글 작성란이 비어있습니다.";
       this.content2 = "";
@@ -554,7 +547,7 @@ export default{
       this.btn2 = false;
       this.showDialog();
     },
-    editCommentInvalidPopup() {
+    editCommentInvalidPopup() { // 댓글 작성란 비었음 알림 팝업
       this.headerTitle = "댓글 수정";
       this.content1 = "댓글 작성란이 비어있습니다.";
       this.content2 = "";
@@ -562,7 +555,7 @@ export default{
       this.btn2 = false;
       this.showDialog();
     },
-    commentAddFailPopup() {
+    commentAddFailPopup() { // 댓글 등록 실패 팝업
       this.headerTitle = "댓글 등록";
       this.content1 = "댓글 등록에 실패하였습니다.";
       this.content2 = "";
@@ -572,9 +565,8 @@ export default{
     },
 
     checkDialog() { // 팝업창 버튼 클릭시
-      // 확인 버튼 클릭시 동작 걸기
-      if(this.isRecipeDelete == true) this.deleteRecipe();
-      else this.deleteComment();
+      if(this.isRecipeDelete == true) this.deleteRecipe(); // 레시피 삭제인 경우
+      else this.deleteComment(); // 댓글 삭제인 경우
       this.hideDialog();
     },
     deleteRecipe() { // 게시글 삭제
@@ -598,7 +590,7 @@ export default{
           }
         });
     },
-    deleteComment() {
+    deleteComment() { // 댓글 삭제
       let vm = this;
       const deleteInfo = JSON.stringify({
         "comment_id": vm.deleteCommentID,
@@ -649,14 +641,13 @@ export default{
       this.createMailDialog = false;
     },
 
-    likeRecipe() { // 좋아요 버튼 클릭시 동작, 서버랑 통신은 화면을 벗어날 때 초기와 다를 경우에만 실시
+    likeRecipe() { // 좋아요 버튼 클릭시 동작, 서버랑 통신은 화면을 벗어날 때 상태가 초기와 다를 경우에만 실시
       this.isLikedAfter = !this.isLikedAfter;
       if(this.isLikedAfter) ++this.requestRecipe.like_count;
       else --this.requestRecipe.like_count;
     },
 
-    unExistIngredients() {
-    // 미보유 재료 요청
+    unExistIngredients() { // 미보유 재료 요청
       let pid = this.$route.params.id;
       let vm = this;
       herokuAPI.unExistIngredients(vm.userNN, pid)
@@ -683,7 +674,7 @@ export default{
         });
     },
 
-    remainAmmounts() {
+    remainAmmounts() { // 남은 재료 계산하기 요청
       let vm = this;
       herokuAPI.decreaseAmount(vm.userNN, vm.requestRecipe.post_id)
         .then(function (response) {
@@ -705,7 +696,7 @@ export default{
     methodToRunOnSelect(payload) {
       this.object = payload;
     },
-    addComment() {
+    addComment() { // 댓글 등록
       let vm = this;
       const validate = this.$refs.form.validate();
       if(!validate) {
@@ -739,11 +730,11 @@ export default{
           }
         });
     },
-    toEditComment(object) {
+    toEditComment(object) { // 댓글 수정 버튼 클릭시 동작
       this.editCommentID = object.comment_id;
       this.changeComment = object.comments;
     },
-    editComment() {
+    editComment() { // 댓글 수정 요청
       let vm = this;
       if(vm.changeComment == "") {
         vm.editCommentInvalidPopup();

@@ -1,12 +1,11 @@
-<template>
+<template> <!-- 요리 사진 열람 화면 -->
   <v-container>
   
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
         <v-card height="md-800 xl-1000" color="#f5efe6">
+          <!-- 요리 사진 게시판으로 돌아가기 -->
           <v-btn text to="/photo" class="ml-5 mt-5"> - 요리 사진 게시판</v-btn>
-          <!-- 사용자 정보, 작성일 -->
-          
             <v-row>
               <v-col>
                 <v-card fill-height color="#f5efe6" class="mt-10" flat>
@@ -20,31 +19,30 @@
                     </v-col>
                     <v-col class="py-0 my-0">
                       <v-card fill-height color="#f5efe6" flat>
-                        <!-- 이름 넣어주세요 -->
                         <v-card-title primary-title >
-                          {{ requestPhoto.nickname }}
+                          {{ requestPhoto.nickname }} <!-- 작성자 닉네임 -->
                         </v-card-title>
                       </v-card>
                     </v-col>
                   </v-row>
+
                   <v-row>
                     <v-col cols="3" class="py-0 my-0">
                       <v-card fill-height color="#f5efe6" flat style="color:#7895B2">
                         <v-card-title>
                           작성일
                         </v-card-title>
-                        
                       </v-card>
                     </v-col>
                     <v-col class="py-0 my-0">
                       <v-card fill-height color="#f5efe6" flat>
-                        <!-- 날짜 넣어주세요 -->
                         <v-card-title primary-title>
-                          {{ requestPhoto.upload_time.split(/[T]/)[0]}}
+                          {{ requestPhoto.upload_time.split(/[T]/)[0]}} <!-- 작성일 -->
                         </v-card-title>
                       </v-card>
                     </v-col>
                   </v-row>
+
                 </v-card>
               </v-col>
             </v-row>
@@ -63,22 +61,19 @@
               <v-col cols="2" class="d-flex align-end">
                 <v-row justify="start">
                   <div class=".buttons">
-                    <!-- 삭제 버튼 여기 있음 -->
-                    <v-btn v-if="isMine" @click="deletePopup" icon x-large>  <!--@click="deletePhoto"-->
+                    <v-btn v-if="isMine" @click="deletePopup" icon x-large>  <!-- 삭제 버튼 -->
                       <v-icon x-large>mdi-delete-outline</v-icon>
                       <div>삭제</div>
                     </v-btn>
                     
                     <v-card height="20" color="#f5efe6" flat></v-card>
-                    <!-- 쪽지 버튼 여기 있음 -->
-                    <v-btn v-if="!isMine" @click="showMailCreate" icon x-large>
+                    <v-btn v-if="!isMine" @click="showMailCreate" icon x-large> <!-- 쪽지 버튼 -->
                       <v-icon x-large>mdi-email-arrow-right-outline</v-icon>
                       <div>쪽지</div>
                     </v-btn>
                     
                     <v-card height="20" color="#f5efe6" flat></v-card>
-                    <!-- 신고 버튼 여기 있음 -->
-                    <v-btn v-if="!isMine" @click="showReportDialog" icon x-large>
+                    <v-btn v-if="!isMine" @click="showReportDialog" icon x-large> <!-- 신고 버튼 -->
                       <v-icon x-large>mdi-alert-octagon</v-icon>
                       <div>신고</div>
                     </v-btn>
@@ -91,24 +86,22 @@
 
             <v-row justify="center">
               <v-card color="#f5efe6" height="50" flat >
-                <!-- 좋아요 버튼 여기 있음 -->
-                <v-btn @click="likePhoto" icon x-large>
+                <v-btn @click="likePhoto" icon x-large> <!-- 좋아요 버튼 -->
                   <v-icon x-large>mdi-thumb-up-outline</v-icon>
-                  <div v-if="!isLikedAfter">좋아요</div>
-                  <div v-if="isLikedAfter">좋아요 취소</div>
+                  <div v-if="!isLikedAfter">좋아요</div> <!-- 좋아요를 하지 않은 상태인 경우 -->
+                  <div v-if="isLikedAfter">좋아요 취소</div> <!-- 좋아요를 한 상태인 경우 -->
                 </v-btn>
               </v-card>
             </v-row>
 
-            <!-- 좋아요 수 여기 있음 -->
             <v-row justify="center" class="mt-10 thumbs">
-              좋아요 수 {{ requestPhoto.like_count }}
+              좋아요 수 {{ requestPhoto.like_count }} <!-- 좋아요 수 -->
             </v-row>
         </v-card>
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -122,7 +115,6 @@
         @submit="checkDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}<br>{{ content2 }}</div>
         </template>
       </popup-dialog>
@@ -140,7 +132,7 @@
       />
     </v-dialog>
 
-    <!-- 신고 팝업창 형식 -->
+    <!-- 신고 팝업창 -->
     <v-dialog
       max-width="400"
       v-model="reportDialog"
@@ -188,7 +180,7 @@ export default{
       deletePost: false,
     }
   },
-  mounted() {
+  mounted() { // 뷰 생성시 요리 사진 게시글 요청해서 받아오는 과정
     let pid = this.$route.params.id;
     console.log("post_id", pid);
     if(pid == null) {
@@ -221,7 +213,7 @@ export default{
         }
       });
   },
-  beforeDestroy() {
+  beforeDestroy() { // 뷰 없어지기 전 좋아요 상태 변화 확인, 등록 과정
     let vm = this;
     if (vm.deletePost) return;
     if (vm.isLikedBefore == vm.isLikedAfter) return; // 좋아요 상태 같은 경우
@@ -262,7 +254,7 @@ export default{
     hideDialog() { // 팝업창 숨기기
       this.popupDialog = false;
     },
-    deletePopup() {
+    deletePopup() { // 삭제 확인 팝업
       this.headerTitle = "요리 사진 게시글 삭제";
       this.content1 = "게시글을 삭제하시겠습니까?";
       this.btn1Title = "취소";
@@ -270,14 +262,14 @@ export default{
       this.btn2 = true;
       this.showDialog();
     },
-    deleteFailPopup() {
+    deleteFailPopup() { // 삭제 실패 팝업
       this.headerTitle = "서버 오류";
       this.content1 = "게시글 삭제를 실패하였습니다.";
       this.btn1Title = "확인";
       this.btn2 = false;
       this.showDialog();
     },
-    requestFailPopup() {
+    requestFailPopup() { // 게시글 요청 실패 팝업
       this.headerTitle = "요청 실패";
       this.content1 = "게시글을 불러오지 못했습니다.";
       this.content2 = "";
@@ -285,20 +277,18 @@ export default{
       this.btn2 = false;
       this.showDialog();
     },
-    likeFailPopup(text) {
+    likeFailPopup(text) { // 좋아요 등록, 실패 팝업
       this.headerTitle = "서버 오류";
       this.content1 = '"좋아요" '+text+"에 실패하였습니다.";
-      this.btn1Title = "취소";
-      this.btn2Title = "삭제";
-      this.btn2 = true;
+      this.btn1Title = "확인";
+      this.btn2 = false;
       this.showDialog();
     },
     checkDialog() { // 팝업창 버튼 클릭시
-      // 확인 버튼 클릭시 동작 걸기
       this.deletePhoto();
       this.hideDialog();
     },
-    deletePhoto() {
+    deletePhoto() { // 요리사진 삭제 
       let vm = this;
       vm.deletePost = true;
       const deleteTarget = {
@@ -325,21 +315,21 @@ export default{
         });
     },
 
-    showReportDialog() { // 팝업창 보이기
+    showReportDialog() { // 신고 팝업창 보이기
       this.reportDialog = true
     },
-    hideReportDialog() { // 팝업창 숨기기
+    hideReportDialog() { // 신고 팝업창 숨기기
       this.reportDialog = false
     },
 
-    showMailCreate(){ // 팝업창 보이기
+    showMailCreate(){ // 쪽지 팝업창 보이기
       this.createMailDialog = true;
     },
-    hideMailCreate(){ // 팝업창 숨기기
+    hideMailCreate(){ // 쪽지 팝업창 숨기기
       this.createMailDialog = false;
     },
 
-    likePhoto() { // 좋아요 버튼 클릭시 동작, 서버랑 통신은 화면을 벗어날 때 초기와 다를 경우에만 실시
+    likePhoto() { // 좋아요 버튼 클릭시 동작, 서버랑 통신은 화면을 벗어날 때 초기와 상태가 다를 경우에만 실시
       this.isLikedAfter = !this.isLikedAfter;
       if(this.isLikedAfter) ++this.requestPhoto.like_count;
       else --this.requestPhoto.like_count;

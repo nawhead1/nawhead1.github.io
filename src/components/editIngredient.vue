@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 재료 수정 팝업창 -->
   <v-card>
     <!-- 재료 입력 부분 -->
     <v-card-text>
@@ -83,7 +83,7 @@
       </v-btn>
     </v-card-actions>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -95,7 +95,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}</div>
         </template>
       </popup-dialog>

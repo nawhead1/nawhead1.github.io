@@ -1,8 +1,7 @@
-<template>
+<template> <!-- 마이페이지 레시피 열람 화면, 레시피 열람과 거의 동일 -->
   <v-container>
     <v-row justify="center">
       <v-col class="col-xl-8 col-md-10">
-        <!-- 가장 바깥쪽 카드 -->
         <v-card min-height="1000" color="#f5efe6" style="position:relative">
           <div class="d-flex justify-space-between align-end">
             <!-- 뒤로 돌아가기 버튼 -->
@@ -32,7 +31,6 @@
           <div class="mt-5">
             <div class="line mx-5"></div>
 
-            <!-- 요리 이름 변수로 바꿔주세요. -->
             <div class="px-10 d-flex align-center">
               <span class="my-text ml-11 mr-16 pa-4">레시피 제목</span>
               <v-divider vertical></v-divider>
@@ -41,17 +39,14 @@
             
             <div class="line mx-5"></div>
 
-            <!-- 요리 타입 변수로 바꿔주세요. -->
             <div class="px-10 d-flex align-center">
               <span class="my-text ml-11 mr-16 pa-4">레시피 종류</span>
               <v-divider vertical></v-divider>
               <span class="my-text ml-16 pa-4">{{ requestRecipe.category }}</span>
-              
             </div>
 
             <div class="line mx-5"></div>
 
-            <!-- script에 recippeTypeObject 를 바꾸시면 됩니다. -->
             <div class="px-10 d-flex align-center">
               <span class="my-text ml-11 mr-16 pa-4">매운맛 단계</span>
               <v-divider vertical class="mr-3"></v-divider>
@@ -76,8 +71,7 @@
               
               <v-divider vertical class="mr-1"></v-divider>
               <div class=ma-3>
-                <!-- 재료 나타날 v-for -->
-                <!-- 재료를 바꾸시면 됩니다. -->
+                <!-- 재료 목록 -->
 			          <span v-for="item in requestRecipe.Recipe_Ingredients" :key="item.id">
 			          	<span v-if="!UnExistIngre.includes(item.id)" style="vertical-align: text-top" class="my-text ml-16">{{item.name}} {{item.amount}}{{item.unit}}</span>
                   <span v-if="UnExistIngre.includes(item.id)" style="vertical-align: text-top" class="my-text-x ml-16">{{item.name}} {{item.amount}}{{item.unit}}</span>
@@ -91,7 +85,6 @@
           </div>
 
           <!-- 레시피 내용 입력란 -->
-          <!-- 여기 레시피 내용을 바꾸시면 됩니다. -->
           <v-card min-height="100" class="mx-5 mt-5">
             <v-card-title primary-title>
               레시피 내용
@@ -101,7 +94,6 @@
             </v-card-text>
           </v-card>
 
-          <!-- 좋아요 숫자 바꿔주세요 -->
           <div class="d-flex justify-center my-5"  :class="{ 'liked' : isLikedAfter == true, 'unliked' : isLikedAfter == false }">
             <v-btn @click="likeRecipe" text icon x-large>
               <v-icon>mdi-thumb-up-outline</v-icon>
@@ -109,39 +101,35 @@
             </v-btn>
           </div>
 
-          <!-- 댓글 개수 바꿔주세요 -->
           <div class="my-text ml-7">댓글 {{requestRecipe.comment_count}}개</div>
           <div class="mx-5 line"></div>
           
-          <!-- 댓글 v-for 부분입니다. -->
+          <!-- 댓글 목록 -->
           <div v-for="item in requestRecipe.comments" :key="item.comment_id">
             <div v-if="editCommentID != item.comment_id" class="d-flex align-top justify-space-between">
-              
-              <!-- 사용자 정보 부분입니다 -->
               <div class="d-flex align-top jusify-left">
                 <div class="mx-7 my-3 my-comment-commenter">
                   <h3 class="my-text">{{ item.nickname }}</h3>
                   <p class="ma-0 my-text">{{ item.comment_time.split(/[T]/)[0] }}</p>
                 </div>
-  
-              <!-- 댓글 부분 댓글 내용부분입니다. -->
+
                 <div class="my-comment my-text ma-3">
                   {{ item.comments }}
                 </div>
               </div>
-              
-              <!-- 작성자일 경우 주의 버튼 삭제, 연필과 쓰레기통만 뜨게 해주세요. 밑에 있으니 바꿔보세요.-->
+
               <div class="d-flex my-3 mr-7">
                 <div>
-
+                  <!-- 댓글 신고 버튼 -->
                   <v-btn @click="reportComment(item.comment_id)" text icon small v-if="userNN != item.nickname">
                     <v-icon>mdi-alert-outline</v-icon>
                   </v-btn>
-                  
+                  <!-- 댓글 수정 버튼 -->
                   <div v-if="userNN == item.nickname">
                     <v-btn @click="toEditComment(item)" text icon small color="blue">
                       <v-icon>mdi-pencil-outline</v-icon>
                     </v-btn>
+                    <!-- 댓글 삭제 버튼 -->
                     <v-btn @click="commentDeletePopup(item.comment_id)" text icon small color="red">
                       <v-icon>mdi-trash-can-outline</v-icon>
                     </v-btn>
@@ -151,13 +139,13 @@
               </div>
             </div>
 
-            <!-- 댓글 수정 부분입니다. -->
+            <!-- 댓글 수정 부분 -->
             <div v-else class="d-flex align-top jusify-left my-comment-write">
               <div class="mx-7 my-3 my-comment-commenter ">
                 <v-btn @click="editComment" color="#AEBDCA">수정하기</v-btn>
               </div>
 
-              <!-- 댓글 수정 댓글 내용부분입니다. -->
+              <!-- 댓글 수정 댓글 내용 부분 -->
               <v-card width="100%" color="#f5efe6" flat class="mb-0 mr-5 ml-11" >
                 <div class="my-text mb-0 ma-3">
                   <v-form ref="form" lazy-validation>
@@ -177,13 +165,13 @@
             <div class="mx-5 line"></div>  
           </div>
 
-          <!-- 댓글 등록 부분입니다. -->
+          <!-- 댓글 등록 부분 -->
           <div class="d-flex align-top jusify-left my-comment-write">
             <div class="mx-7 my-3 my-comment-commenter ">
               <v-btn @click="addComment" color="#AEBDCA">등록</v-btn>
             </div>
 
-          <!-- 댓글 등록 댓글 내용부분입니다. -->
+          <!-- 댓글 등록 댓글 내용부분 -->
             <v-card width="100%" color="#f5efe6" flat class="mb-0 mr-5 ml-11" >
               <div class="my-text mb-0 ma-3">
                 <v-form ref="form" lazy-validation>
@@ -204,7 +192,7 @@
       </v-col>
     </v-row>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -218,7 +206,6 @@
         @submit="checkDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div>{{ content1 }}<br>{{ content2 }}</div>
         </template>
       </popup-dialog>
@@ -236,7 +223,7 @@
       />
     </v-dialog>
 
-    <!-- 신고 팝업창 형식 -->
+    <!-- 신고 팝업창 -->
     <v-dialog
       max-width="400"
       v-model="reportDialog"
@@ -248,6 +235,7 @@
       />
     </v-dialog>
 
+    <!-- 토스트 메시지 -->
     <v-snackbar v-model="snackbar" timeout="3000">
       {{ snackbarContents }}
       <template v-slot:action="{ attrs }">
@@ -290,14 +278,12 @@
 .unliked {
   color: #808080;
 }
-
 .menu-container {
   display: none;
   position: absolute;
   right: 0;
   top: 6%;
 }
-
 .menu-item {
   display: none;
   width: 64px;
@@ -309,20 +295,16 @@
   padding-top: 5px;
   border: 1px solid black;
   border-radius: 4px;
-
   background-color:#fefefe;
   cursor: pointer;
 }
-
 .menu-item:hover{
   background-color:#8bacc9;
   transition: 0.5s;
 }
-
 .mail-btn{
   margin-top: -24px;
 }
-
 .visible{
   display: block;
 }

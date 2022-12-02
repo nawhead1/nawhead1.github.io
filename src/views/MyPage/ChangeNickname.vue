@@ -1,12 +1,10 @@
-<template>
+<template> <!-- 닉네임 변경 화면 -->
   <v-container>
     <v-layout>
-      <!-- 바깥쪽 살구색 배경 -->
       <v-row justify="center">
         <v-col cols="8"> 
           <v-card color="#f5efe6" height="800">
             <v-card color='#f5efe6' height="100" flat></v-card>
-            <!-- 안쪽 하얀 배경 -->
             <v-row justify="center">
               <v-col cols="md-6 xl-4" align-content="center">
                 <v-card color='#fefefe' height="600" rounded="xl">
@@ -51,7 +49,7 @@
       </v-row>
     </v-layout>
 
-    <!-- 팝업창 형식 -->
+    <!-- 팝업창 -->
     <v-dialog
       max-width="300"
       v-model="popupDialog"
@@ -63,7 +61,6 @@
         @hide="hideDialog"
       >
         <template v-slot:body>
-          <!-- 내용이 들어가는 부분입니다아 -->
           <div> {{ content1 }} </div>
           <div v-if="content2 != ''"> {{ content2 }} </div>
         </template>

@@ -1,4 +1,4 @@
-<template>
+<template> <!-- 기본 팝업창 -->
   <v-card>
     <!-- 제목 부분 -->
     <v-card-title class="justify-center">
