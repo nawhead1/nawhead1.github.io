@@ -468,8 +468,8 @@ export default{
         console.log(this.page, this.sort_object.name);
         this.sortRecipeList(this.page, this.sort_object.name);
 
-      } else if (this.object.name == "조회 순") {
-        console.log("조회 순 선택");
+      } else if (this.object.name == "조회수 순") {
+        console.log("조회수 순 선택");
         this.sort_object.name = "조회수 순";
 
         this.page = 1;

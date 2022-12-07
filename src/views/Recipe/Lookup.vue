@@ -605,10 +605,10 @@ export default{
           }
         })
         .catch(function (e) {
-          if(e.response.status == 500) {
+          if(e.response.status == 403) {
             console.log("403 DB 오류");
             vm.commentDeleteFailPopup();
-          } else if(e.response.status == 502) {
+          } else if(e.response.status == 500) {
             console.log("500 Unknown error");
             vm.commentDeleteFailPopup();
           }
